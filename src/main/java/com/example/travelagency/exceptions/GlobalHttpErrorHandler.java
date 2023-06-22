@@ -1,6 +1,5 @@
 package com.example.travelagency.exceptions;
 
-import com.example.travelagency.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +26,11 @@ public class GlobalHttpErrorHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(ClientResponseException.class)
+    public ResponseEntity<Object> handleHttpClientError(ClientResponseException exception) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(exception.getMessage());
     }
 
 }

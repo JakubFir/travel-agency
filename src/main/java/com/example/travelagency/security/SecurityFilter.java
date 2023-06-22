@@ -23,10 +23,9 @@ public class SecurityFilter {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/register")
-                                .permitAll()
+                        authRequest
                                 .anyRequest()
-                                .authenticated())
+                                .permitAll())
                 .formLogin(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider);
         return httpSecurity.build();
