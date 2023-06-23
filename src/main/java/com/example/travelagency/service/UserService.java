@@ -2,8 +2,8 @@ package com.example.travelagency.service;
 
 import com.example.travelagency.domain.Role;
 import com.example.travelagency.domain.User;
-import com.example.travelagency.dto.RegisterRequest;
-import com.example.travelagency.dto.UpdateUserRequest;
+import com.example.travelagency.model.dto.RegisterRequest;
+import com.example.travelagency.model.dto.UpdateUserRequest;
 import com.example.travelagency.exceptions.EmailTakenException;
 import com.example.travelagency.exceptions.UsernameTakenException;
 import com.example.travelagency.repository.UserRepository;

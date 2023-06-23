@@ -25,12 +25,20 @@ public class GlobalHttpErrorHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
     @ExceptionHandler(ClientResponseException.class)
     public ResponseEntity<Object> handleHttpClientError(ClientResponseException exception) {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(exception.getMessage());
+    }
+    @ExceptionHandler(FlightNotFoundException.class)
+    public ResponseEntity<Object> handleFlightNotFoundException(FlightNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+    @ExceptionHandler(TripNotFoundException.class)
+    public ResponseEntity<Object> handleTripNotFoundException(TripNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
 }

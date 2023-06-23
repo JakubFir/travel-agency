@@ -1,6 +1,6 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.dto.RegisterRequest;
+import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.exceptions.NullPointerException;
 import com.example.travelagency.service.UserService;
 import com.example.travelagency.validator.RequestValidator;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/register")
 @RequiredArgsConstructor
-public class registerController {
+public class RegisterController {
 
     private final UserService userService;
     private final RequestValidator requestValidator;

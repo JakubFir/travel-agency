@@ -1,4 +1,4 @@
-package com.example.travelagency.amadeusFlightSearch.dto;
+package com.example.travelagency.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccessTokenResponse {
-    @JsonProperty("access_token")
-    private String accessToken;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Departure {
+    @JsonProperty("iataCode")
+    private String iataCode;
+    @JsonProperty("at")
+    private String date;
 }

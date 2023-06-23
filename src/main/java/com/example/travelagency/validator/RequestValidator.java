@@ -1,6 +1,6 @@
 package com.example.travelagency.validator;
 
-import com.example.travelagency.dto.RegisterRequest;
+import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.exceptions.EmailTakenException;
 import com.example.travelagency.exceptions.UsernameTakenException;
 import com.example.travelagency.repository.UserRepository;

@@ -1,10 +1,10 @@
-package com.example.travelagency.amadeusFlightSearch.client;
+package com.example.travelagency.service.amadeusFlightSearch.client;
 
 
-import com.example.travelagency.amadeusFlightSearch.config.AmadeusFlightSearchConfig;
-import com.example.travelagency.amadeusFlightSearch.dto.AccessTokenResponse;
-import com.example.travelagency.amadeusFlightSearch.dto.AmadeusFlight;
-import com.example.travelagency.amadeusFlightSearch.dto.OriginFlight;
+import com.example.travelagency.domain.Trip;
+import com.example.travelagency.service.amadeusFlightSearch.config.AmadeusFlightSearchConfig;
+import com.example.travelagency.model.AccessTokenResponse;
+import com.example.travelagency.model.AmadeusFlight;
 import com.example.travelagency.exceptions.ClientResponseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -48,17 +48,17 @@ public class AmadeusFlightSearch {
         }
     }
 
-    public AmadeusFlight getFlight(OriginFlight originFlight) {
+    public AmadeusFlight getFlight(Trip trip) {
         RestTemplate restTemplate = new RestTemplate();
-       AccessTokenResponse accessTokenResponse = getAccessToken();
+        AccessTokenResponse accessTokenResponse = getAccessToken();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessTokenResponse.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
         System.out.println(accessTokenResponse.getAccessToken());
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
-                .queryParam("originLocationCode", originFlight.getOrigin())
-                .queryParam("destinationLocationCode", originFlight.getDestination())
+                .queryParam("originLocationCode", trip.getOrigin())
+                .queryParam("destinationLocationCode", trip.getDestinations())
                 .queryParam("departureDate", java.time.LocalDate.now().toString())
                 .queryParam("adults", "1")
                 .queryParam("max", "2")

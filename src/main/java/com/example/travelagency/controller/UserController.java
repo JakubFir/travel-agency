@@ -1,12 +1,11 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.dto.UpdateUserRequest;
-import com.example.travelagency.dto.UserDto;
+import com.example.travelagency.model.dto.UpdateUserRequest;
+import com.example.travelagency.model.dto.UserDto;
 import com.example.travelagency.mapper.UserMapper;
 import com.example.travelagency.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

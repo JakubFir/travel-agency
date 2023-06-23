@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany
+    private List<BookTrip> bookedTrips;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

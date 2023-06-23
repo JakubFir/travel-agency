@@ -1,7 +1,7 @@
-package com.example.travelagency.dto;
+package com.example.travelagency.model.dto;
 
 
-import com.example.travelagency.amadeusFlightSearch.dto.FlightInfo;
+import com.example.travelagency.model.FlightInfo;
 
 import com.example.travelagency.domain.Trip;
 import lombok.AllArgsConstructor;

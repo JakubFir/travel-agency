@@ -5,19 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
-
-@Entity
 @Data
 @Table
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trip {
+public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String origin;
-    private String destinations;
-    private BigDecimal price;
+    private String departure;
+    private String arrival;
+
+    public Flight(String departure, String arrival) {
+        this.departure = departure;
+        this.arrival = arrival;
+    }
 }

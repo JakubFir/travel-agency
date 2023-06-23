@@ -1,4 +1,4 @@
-package com.example.travelagency.dto;
+package com.example.travelagency.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

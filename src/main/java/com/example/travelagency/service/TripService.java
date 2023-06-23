@@ -1,10 +1,8 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.amadeusFlightSearch.client.AmadeusFlightSearch;
-import com.example.travelagency.amadeusFlightSearch.dto.AmadeusFlight;
-import com.example.travelagency.amadeusFlightSearch.dto.OriginFlight;
+import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.domain.Trip;
-import com.example.travelagency.dto.TripInfo;
+import com.example.travelagency.model.dto.TripInfo;
 import com.example.travelagency.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,13 +27,10 @@ public class TripService {
     public TripInfo getTripInfo(Long tripId) {
         Trip tripToGetInformation = tripRepository.findById(tripId).orElseThrow();
         TripInfo tripInfo = new TripInfo();
-        OriginFlight originFlight = new OriginFlight();
 
-        originFlight.setOrigin(tripToGetInformation.getOrigin());
-        originFlight.setDestination(tripToGetInformation.getDestinations());
 
         tripInfo.setTrip(tripToGetInformation);
-        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getFlight(originFlight).getAvailableFlights());
+        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getFlight(tripToGetInformation).getAvailableFlights());
         return tripInfo;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.travelagency.amadeusFlightSearch.config;
+package com.example.travelagency.service.amadeusFlightSearch.config;
 
 
 import lombok.Getter;
