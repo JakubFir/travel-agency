@@ -14,9 +14,10 @@ public class BookTripMapper {
                 .username(bookTrip.getUser().getUsername())
                 .userId(bookTrip.getUser().getId())
                 .flight(bookTrip.getFlight())
+                .hotel(bookTrip.getHotel())
                 .build();
     }
-    public List<BookTripDto> mapToBookTripDtiList(List<BookTrip> allBookedTrips) {
+    public List<BookTripDto> mapToBookTripDtoList(List<BookTrip> allBookedTrips) {
         return allBookedTrips.stream().map(this::mapToBookTripDto).collect(Collectors.toList());
     }
 }

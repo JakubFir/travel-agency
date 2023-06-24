@@ -3,8 +3,8 @@ package com.example.travelagency.service.amadeusFlightSearch.client;
 
 import com.example.travelagency.domain.Trip;
 import com.example.travelagency.service.amadeusFlightSearch.config.AmadeusFlightSearchConfig;
-import com.example.travelagency.model.AccessTokenResponse;
-import com.example.travelagency.model.AmadeusFlight;
+import com.example.travelagency.model.amadeusModel.AccessTokenResponse;
+import com.example.travelagency.model.amadeusModel.AmadeusFlight;
 import com.example.travelagency.exceptions.ClientResponseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -48,7 +48,7 @@ public class AmadeusFlightSearch {
         }
     }
 
-    public AmadeusFlight getFlight(Trip trip) {
+    public AmadeusFlight getAvailableFlights(Trip trip) {
         RestTemplate restTemplate = new RestTemplate();
         AccessTokenResponse accessTokenResponse = getAccessToken();
 
@@ -58,7 +58,7 @@ public class AmadeusFlightSearch {
         System.out.println(accessTokenResponse.getAccessToken());
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
                 .queryParam("originLocationCode", trip.getOrigin())
-                .queryParam("destinationLocationCode", trip.getDestinations())
+                .queryParam("destinationLocationCode", trip.getIda())
                 .queryParam("departureDate", java.time.LocalDate.now().toString())
                 .queryParam("adults", "1")
                 .queryParam("max", "2")

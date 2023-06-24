@@ -1,4 +1,4 @@
-package com.example.travelagency.model;
+package com.example.travelagency.model.amadeusModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Segments {
-    @JsonProperty("departure")
-    private Departure departure;
-    @JsonProperty("arrival")
-    private Arrival arrival;
-
-
+public class Arrival {
+    @JsonProperty("iataCode")
+    private String iataCode;
+    @JsonProperty("at")
+    private String date;
 }

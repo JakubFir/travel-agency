@@ -1,7 +1,5 @@
 package com.example.travelagency.domain;
 
-import com.example.travelagency.model.FlightInfo;
-import com.example.travelagency.model.dto.FlightInfoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +20,8 @@ public class BookTrip {
     @OneToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
+    @OneToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
 }

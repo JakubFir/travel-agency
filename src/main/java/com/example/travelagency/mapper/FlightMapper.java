@@ -1,7 +1,7 @@
 package com.example.travelagency.mapper;
 
 import com.example.travelagency.domain.Flight;
-import com.example.travelagency.model.FlightInfo;
+import com.example.travelagency.model.amadeusModel.FlightInfo;
 import org.springframework.stereotype.Service;
 
 @Service

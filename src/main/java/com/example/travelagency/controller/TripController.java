@@ -2,7 +2,7 @@ package com.example.travelagency.controller;
 
 import com.example.travelagency.domain.Trip;
 import com.example.travelagency.model.dto.TripDto;
-import com.example.travelagency.model.dto.TripInfo;
+import com.example.travelagency.domain.TripInfo;
 import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.service.TripService;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +32,5 @@ public class TripController {
     public TripInfo getTripInfo(@PathVariable Long tripId) {
         return tripService.getTripInfo(tripId);
     }
+
 }

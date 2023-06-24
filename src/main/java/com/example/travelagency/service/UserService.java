@@ -2,6 +2,7 @@ package com.example.travelagency.service;
 
 import com.example.travelagency.domain.Role;
 import com.example.travelagency.domain.User;
+import com.example.travelagency.exceptions.UserNotFoundException;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.model.dto.UpdateUserRequest;
 import com.example.travelagency.exceptions.EmailTakenException;
@@ -33,7 +34,7 @@ public class UserService {
     }
 
     public User getUser(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     public List<User> getAllUsers() {

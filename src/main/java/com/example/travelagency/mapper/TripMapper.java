@@ -6,14 +6,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class TripMapper {
     public TripDto mapToTripDto(Trip trip) {
         return TripDto.builder()
                 .destinations(trip.getDestinations())
                 .origin(trip.getOrigin())
-                .price(trip.getPrice())
+                .description(trip.getDescription())
                 .build();
+
 
     }
 

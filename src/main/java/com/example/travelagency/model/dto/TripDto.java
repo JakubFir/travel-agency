@@ -10,5 +10,5 @@ import java.math.BigDecimal;
 public class TripDto {
     private String destinations;
     private String origin;
-    private BigDecimal price;
+    private String description;
 }

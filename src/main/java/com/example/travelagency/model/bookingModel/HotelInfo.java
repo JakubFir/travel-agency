@@ -1,4 +1,4 @@
-package com.example.travelagency.model;
+package com.example.travelagency.model.bookingModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,12 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Intineraries {
-    @JsonProperty("segments")
-    private List<Segments> segments;
+public class HotelInfo {
+    @JsonProperty("result")
+   private List<HotelModel> result;
 }

@@ -1,6 +1,5 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.domain.BookTrip;
 import com.example.travelagency.mapper.BookTripMapper;
 import com.example.travelagency.model.dto.BookTripDto;
 import com.example.travelagency.model.dto.BookingRequest;
@@ -23,7 +22,7 @@ public class BookTripController {
     }
     @GetMapping("{userId}")
     public List<BookTripDto> getBookedTrips(@PathVariable Long userId){
-        return bookTripMapper.mapToBookTripDtiList(bookTripService.getAllBookedTrips(userId));
+        return bookTripMapper.mapToBookTripDtoList(bookTripService.getAllBookedTrips(userId));
     }
 
 }

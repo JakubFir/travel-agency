@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class BookingRequest {
     private Long tripId;
     private Long flightId;
+    private Long hotelId;
+    private BookingHotelRequest bookingHotelRequest;
 }
