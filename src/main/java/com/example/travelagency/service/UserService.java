@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService  {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -76,4 +76,5 @@ public class UserService {
     private boolean checkIfUserExists(Long userId) {
         return userRepository.existsById(userId);
     }
+
 }

@@ -57,8 +57,8 @@ public class AmadeusFlightSearch {
         HttpEntity<?> entity = new HttpEntity<>(headers);
         System.out.println(accessTokenResponse.getAccessToken());
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
-                .queryParam("originLocationCode", trip.getOrigin())
-                .queryParam("destinationLocationCode", trip.getIda())
+                .queryParam("originLocationCode", trip.getOriginIataCode())
+                .queryParam("destinationLocationCode", trip.getDestinationsIataCode())
                 .queryParam("departureDate", java.time.LocalDate.now().toString())
                 .queryParam("adults", "1")
                 .queryParam("max", "2")

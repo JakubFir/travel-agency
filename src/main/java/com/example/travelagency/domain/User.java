@@ -1,5 +1,6 @@
 package com.example.travelagency.domain;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -41,13 +41,13 @@ public class BookTripService {
         Flight getChosenFlightForTrip = getFlight(bookingRequest.getFlightId(), tripToBook);
         flightRepository.save(getChosenFlightForTrip);
 
-        Hotel getChosenHotelForTripModel = getHotel(bookingRequest.getBookingHotelRequest(),bookingRequest.getHotelId());
-        hotelRepository.save(getChosenHotelForTripModel);
+        Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(),bookingRequest.getHotelId());
+        hotelRepository.save(getChosenHotelForTrip);
 
         BookTrip bookTrip = new BookTrip();
         bookTrip.setFlight(getChosenFlightForTrip);
         bookTrip.setUser(bookingUser);
-        bookTrip.setHotel(getChosenHotelForTripModel);
+        bookTrip.setHotel(getChosenHotelForTrip);
         bookingUser.getBookedTrips().add(bookTrip);
 
         bookTripRepository.save(bookTrip);

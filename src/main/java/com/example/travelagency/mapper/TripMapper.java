@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TripMapper {
     public TripDto mapToTripDto(Trip trip) {
         return TripDto.builder()
-                .destinations(trip.getDestinations())
+                .destinations(trip.getDestination())
                 .origin(trip.getOrigin())
                 .description(trip.getDescription())
                 .build();

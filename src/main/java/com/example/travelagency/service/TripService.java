@@ -1,5 +1,7 @@
 package com.example.travelagency.service;
 
+import com.example.travelagency.domain.Subscriber;
+import com.example.travelagency.repository.SubscriberRepository;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.domain.Trip;
@@ -17,8 +19,14 @@ public class TripService {
     private final TripRepository tripRepository;
     private final AmadeusFlightSearch amadeusFlightSearch;
     private final BookingHotelSearch bookingHotelSearch;
+    private final SubscriberRepository subscriberRepository;
+
+
     public void addTrip(Trip trip) {
+        List<Subscriber> list = subscriberRepository.findAll();
+        trip.setSubscriberList(list);
         tripRepository.save(trip);
+        trip.notifyObs(trip);
     }
 
     public List<Trip> getListOfTrips() {
@@ -31,7 +39,7 @@ public class TripService {
 
         tripInfo.setTrip(tripToGetInformation);
         tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripToGetInformation).getAvailableFlights());
-        tripInfo.setAvailableHotelsInCities(bookingHotelSearch.getAvailableHotels(tripToGetInformation.getDestinations()));
+        tripInfo.setAvailableHotelsInCities(bookingHotelSearch.getAvailableHotels(tripToGetInformation.getDestinationsIataCode()));
         return tripInfo;
     }
 }
