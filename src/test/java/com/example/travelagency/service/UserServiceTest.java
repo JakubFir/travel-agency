@@ -1,10 +1,9 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Role;
-import com.example.travelagency.domain.User;
+import com.example.travelagency.model.persistence.Role;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.model.dto.UpdateUserRequest;
-import com.example.travelagency.model.dto.UserDto;
 import com.example.travelagency.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

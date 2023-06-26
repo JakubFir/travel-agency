@@ -1,4 +1,4 @@
-package com.example.travelagency.model.amadeusModel;
+package com.example.travelagency.model.dto.amadeusModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,14 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FlightInfo {
-    @JsonProperty("type")
-    private String type;
-    @JsonProperty("id")
-    private Long id;
-    @JsonProperty("itineraries")
-    private List<Intineraries> itineraries;
-    @JsonProperty("price")
-    private FlightPriceInfo price;
-
+public class Intineraries {
+    @JsonProperty("segments")
+    private List<Segments> segments;
 }

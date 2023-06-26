@@ -1,4 +1,4 @@
-package com.example.travelagency.domain;
+package com.example.travelagency.model.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

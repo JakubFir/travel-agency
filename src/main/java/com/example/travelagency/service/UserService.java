@@ -1,7 +1,7 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Role;
-import com.example.travelagency.domain.User;
+import com.example.travelagency.model.persistence.Role;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.exceptions.UserNotFoundException;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.model.dto.UpdateUserRequest;

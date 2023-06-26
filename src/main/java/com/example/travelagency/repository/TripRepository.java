@@ -1,6 +1,6 @@
 package com.example.travelagency.repository;
 
-import com.example.travelagency.domain.Trip;
+import com.example.travelagency.model.persistence.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TripRepository extends JpaRepository<Trip, Long> {

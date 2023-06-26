@@ -1,8 +1,8 @@
-package com.example.travelagency.domain;
+package com.example.travelagency.model.persistence;
 
 
-import com.example.travelagency.model.bookingModel.BookingAvailableHotelsInCity;
-import com.example.travelagency.model.amadeusModel.FlightInfo;
+import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
+import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

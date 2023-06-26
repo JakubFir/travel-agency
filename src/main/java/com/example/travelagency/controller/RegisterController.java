@@ -1,7 +1,7 @@
 package com.example.travelagency.controller;
 
 import com.example.travelagency.model.dto.RegisterRequest;
-import com.example.travelagency.exceptions.NullPointerException;
+import com.example.travelagency.exceptions.EmptyFieldsException;
 import com.example.travelagency.service.UserService;
 import com.example.travelagency.validator.RequestValidator;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class RegisterController {
         try {
             userService.registerUser(registerRequest);
         } catch (Exception e) {
-            throw new NullPointerException("All fields must be filled");
+            throw new EmptyFieldsException("All fields must be filled");
         }
         return ResponseEntity.ok().build();
     }

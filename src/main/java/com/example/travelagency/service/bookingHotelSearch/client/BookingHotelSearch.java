@@ -1,11 +1,13 @@
 package com.example.travelagency.service.bookingHotelSearch.client;
 
-import com.example.travelagency.model.bookingModel.HotelInfo;
+import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
-import com.example.travelagency.model.bookingModel.BookingAvailableHotelsInCity;
+import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
 
 import com.example.travelagency.service.bookingHotelSearch.config.BookingHotelSearchConfig;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +27,7 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class BookingHotelSearch {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookingHotelSearch.class);
     private final BookingHotelSearchConfig bookingHotelSearchConfig;
 
     public List<BookingAvailableHotelsInCity> getAvailableHotels(String destination) {
@@ -47,10 +49,12 @@ public class BookingHotelSearch {
             ResponseEntity<BookingAvailableHotelsInCity[]> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, BookingAvailableHotelsInCity[].class);
             return Arrays.stream(Objects.requireNonNull(responseEntity.getBody())).toList();
         } catch (RestClientException e) {
+            LOGGER.error(e.getMessage());
             return Collections.emptyList();
         }
     }
-    public HotelInfo getHotelsByCoordinates(BookingAvailableHotelsInCity availableHotelsInCity, BookingHotelRequest bookingHotelRequest){
+
+    public HotelInfo getHotelsByCoordinates(BookingAvailableHotelsInCity availableHotelsInCity, BookingHotelRequest bookingHotelRequest) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -77,6 +81,7 @@ public class BookingHotelSearch {
             ResponseEntity<HotelInfo> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, HotelInfo.class);
             return responseEntity.getBody();
         } catch (RestClientException e) {
+            LOGGER.error(e.getMessage());
             return new HotelInfo();
         }
 

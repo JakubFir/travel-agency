@@ -1,12 +1,14 @@
 package com.example.travelagency.service.amadeusFlightSearch.client;
 
 
-import com.example.travelagency.domain.Trip;
+import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.service.amadeusFlightSearch.config.AmadeusFlightSearchConfig;
-import com.example.travelagency.model.amadeusModel.AccessTokenResponse;
-import com.example.travelagency.model.amadeusModel.AmadeusFlight;
+import com.example.travelagency.model.dto.amadeusModel.AccessTokenResponse;
+import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.exceptions.ClientResponseException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -24,10 +26,10 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AmadeusFlightSearch {
     private final AmadeusFlightSearchConfig amadeusFlightSearchConfig;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AmadeusFlightSearch.class);
+    private final RestTemplate restTemplate;
 
-    public AccessTokenResponse getAccessToken() {
-        RestTemplate restTemplate = new RestTemplate();
-
+    private AccessTokenResponse getAccessToken() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -49,7 +51,6 @@ public class AmadeusFlightSearch {
     }
 
     public AmadeusFlight getAvailableFlights(Trip trip) {
-        RestTemplate restTemplate = new RestTemplate();
         AccessTokenResponse accessTokenResponse = getAccessToken();
 
         HttpHeaders headers = new HttpHeaders();
@@ -70,6 +71,7 @@ public class AmadeusFlightSearch {
             ResponseEntity<AmadeusFlight> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, AmadeusFlight.class);
             return responseEntity.getBody();
         } catch (RestClientException e) {
+            LOGGER.error(e.getMessage());
             return new AmadeusFlight();
         }
     }

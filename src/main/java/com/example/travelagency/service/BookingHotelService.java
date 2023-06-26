@@ -1,7 +1,7 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.model.bookingModel.BookingAvailableHotelsInCity;
-import com.example.travelagency.model.bookingModel.HotelInfo;
+import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
+import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,7 @@ public class BookingHotelService {
     public HotelInfo getHotelsByCoordinates(BookingHotelRequest bookingHotelRequest) {
         List<BookingAvailableHotelsInCity> availableHotels = bookingHotelSearch.getAvailableHotels(bookingHotelRequest.getOrigin());
         for (BookingAvailableHotelsInCity hotel : availableHotels) {
-            System.out.println(hotel.getName());
-            if (hotel.getName().equals(bookingHotelRequest.getHotelName())) {
+            if (hotel.getName().equals(bookingHotelRequest.getPlaceName())) {
                 return bookingHotelSearch.getHotelsByCoordinates(hotel, bookingHotelRequest);
             }
         }

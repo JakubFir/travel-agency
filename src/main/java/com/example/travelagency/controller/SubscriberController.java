@@ -1,25 +1,26 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.domain.Subscriber;
-import com.example.travelagency.service.observer.SubscriberService;
+import com.example.travelagency.mapper.SubscriberMapper;
+import com.example.travelagency.model.dto.SubscriberDto;
+import com.example.travelagency.model.persistence.Subscriber;
+import com.example.travelagency.service.SubscriberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("news")
+@RequestMapping(path = "subscribers")
 @RequiredArgsConstructor
 public class SubscriberController {
-    private final SubscriberService subscriberService;
 
-    @PostMapping
-    public void subscribe(@RequestBody Subscriber subscriber) {
-        subscriberService.subscribe(subscriber);
-    }
+    private final SubscriberService subscriberService;
+    private final SubscriberMapper subscriberMapper;
 
     @GetMapping
-    public List<Subscriber> getSubscribers(){
-      return subscriberService.getAll();
+    public List<SubscriberDto> getAllSubscribers(){
+        return subscriberMapper.mapToSubscriberDtoList(subscriberService.getAllSubscribers());
     }
 }

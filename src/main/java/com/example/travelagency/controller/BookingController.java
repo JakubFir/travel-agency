@@ -1,7 +1,7 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.model.bookingModel.BookingAvailableHotelsInCity;
-import com.example.travelagency.model.bookingModel.HotelInfo;
+import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
+import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.service.BookingHotelService;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;

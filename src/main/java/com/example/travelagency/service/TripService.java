@@ -1,13 +1,16 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Subscriber;
+import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Subscriber;
+import com.example.travelagency.repository.NewsLetterRepository;
 import com.example.travelagency.repository.SubscriberRepository;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
-import com.example.travelagency.domain.Trip;
-import com.example.travelagency.domain.TripInfo;
+import com.example.travelagency.model.persistence.Trip;
+import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,14 +22,17 @@ public class TripService {
     private final TripRepository tripRepository;
     private final AmadeusFlightSearch amadeusFlightSearch;
     private final BookingHotelSearch bookingHotelSearch;
-    private final SubscriberRepository subscriberRepository;
+    private final NewsLetterRepository newsLetter;
 
 
     public void addTrip(Trip trip) {
-        List<Subscriber> list = subscriberRepository.findAll();
-        trip.setSubscriberList(list);
         tripRepository.save(trip);
-        trip.notifyObs(trip);
+        List<NewsLetter> newsLetterList = newsLetter.findAll();
+        for(NewsLetter newsLetter : newsLetterList){
+            if (newsLetter.getNewsLetterTitle().equals("New Trip")){
+                newsLetter.notifyObs(trip);
+            }
+        }
     }
 
     public List<Trip> getListOfTrips() {

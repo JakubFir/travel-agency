@@ -1,16 +1,16 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.*;
 import com.example.travelagency.exceptions.FlightNotFoundException;
 import com.example.travelagency.exceptions.TripNotFoundException;
 import com.example.travelagency.mapper.FlightMapper;
 import com.example.travelagency.mapper.HotelMapper;
-import com.example.travelagency.model.bookingModel.HotelModel;
-import com.example.travelagency.model.bookingModel.HotelInfo;
-import com.example.travelagency.model.amadeusModel.AmadeusFlight;
-import com.example.travelagency.model.amadeusModel.FlightInfo;
+import com.example.travelagency.model.dto.bookingModel.HotelModel;
+import com.example.travelagency.model.dto.bookingModel.HotelInfo;
+import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
+import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.BookingRequest;
+import com.example.travelagency.model.persistence.*;
 import com.example.travelagency.repository.*;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import lombok.RequiredArgsConstructor;
@@ -41,16 +41,16 @@ public class BookTripService {
         Flight getChosenFlightForTrip = getFlight(bookingRequest.getFlightId(), tripToBook);
         flightRepository.save(getChosenFlightForTrip);
 
-        Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(),bookingRequest.getHotelId());
+        Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(),bookingRequest.getBookingHotelRequest().getHotelId());
         hotelRepository.save(getChosenHotelForTrip);
 
-        BookTrip bookTrip = new BookTrip();
-        bookTrip.setFlight(getChosenFlightForTrip);
-        bookTrip.setUser(bookingUser);
-        bookTrip.setHotel(getChosenHotelForTrip);
-        bookingUser.getBookedTrips().add(bookTrip);
+        BookedTrip bookedTrip = new BookedTrip();
+        bookedTrip.setFlight(getChosenFlightForTrip);
+        bookedTrip.setUser(bookingUser);
+        bookedTrip.setHotel(getChosenHotelForTrip);
+        bookingUser.getBookedTrips().add(bookedTrip);
 
-        bookTripRepository.save(bookTrip);
+        bookTripRepository.save(bookedTrip);
         userRepository.save(bookingUser);
     }
 
@@ -74,7 +74,7 @@ public class BookTripService {
         return flightMapper.mapFlightInfo(flightInfo);
     }
 
-    public List<BookTrip> getAllBookedTrips(Long userId) {
+    public List<BookedTrip> getAllBookedTrips(Long userId) {
         User userToGetBookedTrips = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return userToGetBookedTrips.getBookedTrips();
     }

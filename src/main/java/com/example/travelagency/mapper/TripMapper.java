@@ -1,6 +1,6 @@
 package com.example.travelagency.mapper;
 
-import com.example.travelagency.domain.Trip;
+import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.dto.TripDto;
 import org.springframework.stereotype.Service;
 

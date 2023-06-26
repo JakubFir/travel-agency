@@ -1,7 +1,7 @@
 package com.example.travelagency.mapper;
 
-import com.example.travelagency.domain.Hotel;
-import com.example.travelagency.model.bookingModel.HotelModel;
+import com.example.travelagency.model.persistence.Hotel;
+import com.example.travelagency.model.dto.bookingModel.HotelModel;
 import org.springframework.stereotype.Service;
 
 @Service

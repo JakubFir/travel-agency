@@ -1,6 +1,6 @@
 package com.example.travelagency.mapper;
 
-import com.example.travelagency.domain.User;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.model.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

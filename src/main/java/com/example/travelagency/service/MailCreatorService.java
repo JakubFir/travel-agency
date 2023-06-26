@@ -1,7 +1,7 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Mail;
-import com.example.travelagency.domain.Trip;
+import com.example.travelagency.model.persistence.Mail;
+import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
 

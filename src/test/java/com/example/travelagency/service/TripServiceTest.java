@@ -1,11 +1,11 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Subscriber;
-import com.example.travelagency.domain.Trip;
-import com.example.travelagency.domain.TripInfo;
-import com.example.travelagency.model.amadeusModel.AmadeusFlight;
-import com.example.travelagency.model.amadeusModel.FlightInfo;
-import com.example.travelagency.model.bookingModel.BookingAvailableHotelsInCity;
+import com.example.travelagency.model.persistence.Subscriber;
+import com.example.travelagency.model.persistence.Trip;
+import com.example.travelagency.model.persistence.TripInfo;
+import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
+import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
+import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
 import com.example.travelagency.repository.SubscriberRepository;
 import com.example.travelagency.repository.TripRepository;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,9 +44,8 @@ class TripServiceTest {
     @Test
     void addTrip() {
         //Given
-        List<Subscriber> ar = new ArrayList<>();
-        Trip trip = new Trip("test", "test", "test", "test", "test", ar);
-        when(subscriberRepository.findAll()).thenReturn(ar);
+
+        Trip trip = new Trip("test", "test", "test", "test", "test");
 
         //When
         tripService.addTrip(trip);
@@ -61,8 +59,7 @@ class TripServiceTest {
     void getListOfTrips() {
         //Given
         List<Trip> list = new ArrayList<>();
-        List<Subscriber> ar = new ArrayList<>();
-        Trip trip = new Trip("test", "test", "test", "test", "test", ar);
+        Trip trip = new Trip("test", "test", "test", "test", "test");
         list.add(trip);
         when(tripRepository.findAll()).thenReturn(list);
 
@@ -77,8 +74,7 @@ class TripServiceTest {
     @Test
     void getTripInfo() {
         //Given
-        List<Subscriber> ar = new ArrayList<>();
-        Trip trip = new Trip("test", "test", "test", "test", "test", ar);
+        Trip trip = new Trip("test", "test", "test", "test", "test");
         List<FlightInfo> flightInfos = new ArrayList<>();
         AmadeusFlight amadeusFlight = new AmadeusFlight(flightInfos);
         List<BookingAvailableHotelsInCity> bookingAvailableHotelsInCities = new ArrayList<>();

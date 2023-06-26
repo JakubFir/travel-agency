@@ -1,6 +1,6 @@
 package com.example.travelagency.repository;
 
-import com.example.travelagency.domain.User;
+import com.example.travelagency.model.persistence.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

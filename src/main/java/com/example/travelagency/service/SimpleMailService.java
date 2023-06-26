@@ -1,7 +1,6 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.domain.Mail;
-import com.example.travelagency.domain.Trip;
+import com.example.travelagency.model.persistence.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class SimpleMailService {
     public static final String WEEKLY_MAIL = "weekly mail";
     public static final String NEWS_LETTER = "news letter";
-    private final MailCreatorService mailCreatorService;
     private final JavaMailSender javaMailSender;
 
     public void sendEmail(final Mail mail, String mailType) {

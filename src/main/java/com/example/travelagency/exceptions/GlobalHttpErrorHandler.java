@@ -18,8 +18,8 @@ public class GlobalHttpErrorHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<Object> handleNullPointerException(NullPointerException exception) {
+    @ExceptionHandler(EmptyFieldsException.class)
+    public ResponseEntity<Object> handleNullPointerException(EmptyFieldsException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
@@ -38,6 +38,16 @@ public class GlobalHttpErrorHandler {
     }
     @ExceptionHandler(TripNotFoundException.class)
     public ResponseEntity<Object> handleTripNotFoundException(TripNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(NewsLetterNotFoundException.class)
+    public ResponseEntity<Object> handleNewsLetterNotFoundException(NewsLetterNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(SubscriberNotFoundException.class)
+    public ResponseEntity<Object> handleSubscriberNotFoundException(SubscriberNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

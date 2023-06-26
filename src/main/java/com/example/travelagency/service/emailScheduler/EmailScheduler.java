@@ -1,13 +1,12 @@
 package com.example.travelagency.service.emailScheduler;
 
-import com.example.travelagency.domain.Mail;
-import com.example.travelagency.domain.User;
+import com.example.travelagency.model.persistence.Mail;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.service.MailCreatorService;
 import com.example.travelagency.service.SimpleMailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

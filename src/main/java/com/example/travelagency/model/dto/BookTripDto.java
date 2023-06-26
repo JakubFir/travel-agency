@@ -1,7 +1,7 @@
 package com.example.travelagency.model.dto;
 
-import com.example.travelagency.domain.Flight;
-import com.example.travelagency.domain.Hotel;
+import com.example.travelagency.model.persistence.Flight;
+import com.example.travelagency.model.persistence.Hotel;
 import lombok.Builder;
 import lombok.Data;
 

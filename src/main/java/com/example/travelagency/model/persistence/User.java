@@ -1,4 +1,4 @@
-package com.example.travelagency.domain;
+package com.example.travelagency.model.persistence;
 
 
 import jakarta.persistence.*;
@@ -29,7 +29,7 @@ public class User implements UserDetails   {
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany
-    private List<BookTrip> bookedTrips;
+    private List<BookedTrip> bookedTrips;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

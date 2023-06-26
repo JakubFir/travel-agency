@@ -1,9 +1,10 @@
-package com.example.travelagency.domain;
+package com.example.travelagency.model.persistence;
 
-import com.example.travelagency.service.SimpleMailService;
 import com.example.travelagency.service.observer.Observer;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
@@ -13,12 +14,11 @@ public class Subscriber implements Observer {
     @GeneratedValue
     private Long id;
     private String email;
-    @ManyToOne
-    @JoinColumn(name = "trip_id")
-    private Trip trip;
-
-
+    @ManyToMany
+    @JoinColumn(name = "news_letter_id")
+    private List<NewsLetter> newsLetter;
     @Override
     public void update() {
+
     }
 }

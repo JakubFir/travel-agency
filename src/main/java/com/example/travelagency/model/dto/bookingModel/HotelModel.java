@@ -1,4 +1,4 @@
-package com.example.travelagency.model.bookingModel;
+package com.example.travelagency.model.dto.bookingModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
