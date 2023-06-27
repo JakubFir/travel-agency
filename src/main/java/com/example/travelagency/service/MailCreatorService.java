@@ -1,5 +1,6 @@
 package com.example.travelagency.service;
 
+import com.example.travelagency.model.dto.TripDto;
 import com.example.travelagency.model.persistence.Mail;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.repository.TripRepository;
@@ -26,4 +27,11 @@ public class MailCreatorService {
     }
 
 
+    public Mail createNewTrioMail(String email, TripDto tripDto) {
+        return Mail.builder()
+                .mailTo(email)
+                .message("New trip has been added " + tripDto)
+                .subject(SimpleMailService.NEWS_LETTER)
+                .build();
+    }
 }

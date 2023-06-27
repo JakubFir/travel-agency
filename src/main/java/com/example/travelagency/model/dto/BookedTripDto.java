@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class BookTripDto {
+public class BookedTripDto {
     private Long userId;
     private String username;
     private Flight flight;

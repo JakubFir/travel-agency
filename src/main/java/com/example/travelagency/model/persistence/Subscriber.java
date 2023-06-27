@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "subscribers")
 @Data
-public class Subscriber implements Observer {
+public class Subscriber {
     @Id
     @GeneratedValue
     private Long id;
@@ -17,8 +17,5 @@ public class Subscriber implements Observer {
     @ManyToMany
     @JoinColumn(name = "news_letter_id")
     private List<NewsLetter> newsLetter;
-    @Override
-    public void update() {
 
-    }
 }

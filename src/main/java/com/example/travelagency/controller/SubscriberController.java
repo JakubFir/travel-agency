@@ -23,4 +23,5 @@ public class SubscriberController {
     public List<SubscriberDto> getAllSubscribers(){
         return subscriberMapper.mapToSubscriberDtoList(subscriberService.getAllSubscribers());
     }
+
 }

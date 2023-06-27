@@ -21,8 +21,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BookTripService {
-    private final BookTripRepository bookTripRepository;
+public class BookingTripService {
+    private final BookedTripRepository bookedTripRepository;
     private final FlightMapper flightMapper;
     private final TripRepository tripRepository;
     private final AmadeusFlightSearch amadeusFlightSearch;
@@ -50,7 +50,7 @@ public class BookTripService {
         bookedTrip.setHotel(getChosenHotelForTrip);
         bookingUser.getBookedTrips().add(bookedTrip);
 
-        bookTripRepository.save(bookedTrip);
+        bookedTripRepository.save(bookedTrip);
         userRepository.save(bookingUser);
     }
 

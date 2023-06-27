@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "newsLetter")
 @Data
-public class NewsLetter implements Observable {
+public class NewsLetter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,16 +19,4 @@ public class NewsLetter implements Observable {
     @ManyToMany
     private List<Subscriber> subscriberList;
 
-    @Override
-    public void register(Observer observer) {
-        subscriberList.add((Subscriber) observer);
-    }
-
-    @Override
-    public void notifyObs(Trip trip) {
-        for (Subscriber subscriber : subscriberList) {
-            System.out.println("notifying " + subscriber.getEmail());
-            subscriber.update();
-        }
-    }
 }

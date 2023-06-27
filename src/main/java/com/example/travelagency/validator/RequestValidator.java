@@ -14,10 +14,7 @@ public class RequestValidator {
     private final UserRepository userRepository;
 
     public boolean validateRegisterRequest(RegisterRequest registerRequest) {
-        if (validateEmail(registerRequest.getEmail()) && validateUsername(registerRequest.getUsername())) {
-            return true;
-        }
-        return false;
+        return validateEmail(registerRequest.getEmail()) && validateUsername(registerRequest.getUsername());
     }
 
     private boolean validateUsername(String username) {
