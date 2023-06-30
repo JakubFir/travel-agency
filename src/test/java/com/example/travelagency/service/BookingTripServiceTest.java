@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -69,14 +70,14 @@ class BookingTripServiceTest {
         //Given
         Trip trip = new Trip("Test", "test", "test", "test", "test");
         User user = new User("test", "test", "test", "test", Role.USER);
-        Hotel hotel = new Hotel(1L,"test","test",2,"test","test","test");
-        Flight flight = new Flight("test","test");
-        HotelModel hotelModel = new HotelModel("test","test",1L,2,"test","test","test");
+        Hotel hotel = new Hotel(1L, "test", "test", 2, "test", "test", "test");
+        Flight flight = new Flight("test", "test");
+        HotelModel hotelModel = new HotelModel("test", "test", 1L, 2, "test", "test", "test");
         List<BookedTrip> list = new ArrayList<>();
         user.setBookedTrips(list);
-        FlightInfo flightInfo = new FlightInfo("test",1L,new ArrayList<>(),new FlightPriceInfo(new BigDecimal(1)));
-        BookingHotelRequest bookingHotelRequest = new BookingHotelRequest("Test","test","test","test",1,1L);
-        BookingRequest bookingRequest = new BookingRequest(1L,1L,bookingHotelRequest);
+        FlightInfo flightInfo = new FlightInfo("test", 1L, new ArrayList<>(), new FlightPriceInfo(new BigDecimal(1)));
+        BookingHotelRequest bookingHotelRequest = new BookingHotelRequest("Test", "test", "test", "test", 1, 1L);
+        BookingRequest bookingRequest = new BookingRequest(1L, 1L, bookingHotelRequest);
 
         when(tripRepository.findById(any())).thenReturn(Optional.of(trip));
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
@@ -89,7 +90,7 @@ class BookingTripServiceTest {
         when(flightMapper.mapFlightInfo(flightInfo)).thenReturn(flight);
 
         //When
-        bookingTripService.bookTrip(bookingRequest,1L);
+        bookingTripService.bookTrip(bookingRequest, 1L);
 
         //Then
         ArgumentCaptor<BookedTrip> bookedTripArgumentCaptor = ArgumentCaptor.forClass(BookedTrip.class);
@@ -107,5 +108,16 @@ class BookingTripServiceTest {
 
     @Test
     void getAllBookedTrips() {
+        //Given
+        List<BookedTrip> list = new ArrayList<>();
+        User user = new User("test", "test", "test", "test", Role.USER);
+        user.setBookedTrips(list);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+        //When
+        List<BookedTrip> result = bookingTripService.getAllBookedTrips(1L);
+
+        //Then
+        assertThat(result).isEqualTo(list);
     }
 }

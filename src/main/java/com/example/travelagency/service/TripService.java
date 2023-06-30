@@ -8,7 +8,7 @@ import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlight
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.repository.TripRepository;
-import com.example.travelagency.service.observer.ObservableImpl;
+import com.example.travelagency.service.observer.NewsLetterObservable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class TripService {
     private final BookingHotelSearch bookingHotelSearch;
     private final NewsLetterRepository newsLetterRepository;
     private final TripMapper tripMapper;
-    private final ObservableImpl observableImpl;
+    private final NewsLetterObservable newsLetterObservable;
 
 
     public void addTrip(Trip trip) {
@@ -31,7 +31,7 @@ public class TripService {
         List<NewsLetter> newsLetterList = newsLetterRepository.findAll();
         for(NewsLetter newsLetter : newsLetterList){
             if (newsLetter.getNewsLetterTitle().equals("New Trip")){
-                observableImpl.notifyObs(tripMapper.mapToTripDto(trip),newsLetter.getSubscriberList());
+                newsLetterObservable.notifyObs(tripMapper.mapToTripDto(trip), newsLetter.getSubscriberList());
             }
         }
     }

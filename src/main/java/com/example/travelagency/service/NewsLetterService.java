@@ -40,6 +40,18 @@ public class NewsLetterService {
         subscriberRepository.save(newSubscriber);
         newsLetterRepository.save(newsLetterToSubscribe);
     }
+    public void unsubscribeToGivenNewsLetter(Subscriber subscriber, Long newsletterId) {
+        Subscriber subscriberToRemoveFromNewsLetter =  subscriberRepository.findByEmail(subscriber.getEmail())
+                .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesnt exists"));
+        NewsLetter newsLetter = newsLetterRepository.findById(newsletterId)
+                .orElseThrow(() -> new NewsLetterNotFoundException("newsletter with given id doesnt exists"));
+
+        subscriberToRemoveFromNewsLetter.getNewsLetter().removeIf(news -> news.getId().equals(newsletterId));
+        newsLetter.getSubscriberList().removeIf(sub -> sub.getEmail().equals(subscriberToRemoveFromNewsLetter.getEmail()));
+
+        subscriberRepository.save(subscriberToRemoveFromNewsLetter);
+        newsLetterRepository.save(newsLetter);
+    }
 
     private boolean checkIfSubscriberIsRegistered(Subscriber subscriber) {
         return subscriberRepository.existsByEmail(subscriber.getEmail());
@@ -53,16 +65,4 @@ public class NewsLetterService {
         return newsLetterRepository.findAll();
     }
 
-    public void unsubscribeToGivenNewsLetter(Subscriber subscriber, Long newsletterId) {
-       Subscriber subscriberToRemoveFromNewsLetter =  subscriberRepository.findByEmail(subscriber.getEmail())
-               .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesnt exists"));
-       NewsLetter newsLetter = newsLetterRepository.findById(newsletterId)
-               .orElseThrow(() -> new NewsLetterNotFoundException("newsletter with given id doesnt exists"));
-
-       subscriberToRemoveFromNewsLetter.getNewsLetter().removeIf(news -> news.getId().equals(newsletterId));
-       newsLetter.getSubscriberList().removeIf(sub -> sub.getEmail().equals(subscriberToRemoveFromNewsLetter.getEmail()));
-
-       subscriberRepository.save(subscriberToRemoveFromNewsLetter);
-       newsLetterRepository.save(newsLetter);
-    }
 }

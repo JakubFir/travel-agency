@@ -41,10 +41,11 @@ public class BookingTripService {
         Flight getChosenFlightForTrip = getFlight(bookingRequest.getFlightId(), tripToBook);
         flightRepository.save(getChosenFlightForTrip);
 
-        Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(),bookingRequest.getBookingHotelRequest().getHotelId());
+        Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(), bookingRequest.getBookingHotelRequest().getHotelId());
         hotelRepository.save(getChosenHotelForTrip);
 
         BookedTrip bookedTrip = new BookedTrip();
+        bookedTrip.setTrip(tripToBook);
         bookedTrip.setFlight(getChosenFlightForTrip);
         bookedTrip.setUser(bookingUser);
         bookedTrip.setHotel(getChosenHotelForTrip);
@@ -77,5 +78,23 @@ public class BookingTripService {
     public List<BookedTrip> getAllBookedTrips(Long userId) {
         User userToGetBookedTrips = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return userToGetBookedTrips.getBookedTrips();
+    }
+
+    public void deleteBookedTrip(Long bookedTripId) {
+        if (bookedTripRepository.existsById(bookedTripId)) {
+            bookedTripRepository.deleteById(bookedTripId);
+        }
+    }
+
+    public void updateBookedTrip(BookingRequest bookingRequest, Long tripId) {
+        BookedTrip bookedTrip = bookedTripRepository.findById(tripId).orElseThrow(() -> new TripNotFoundException("Booked trip with given id doesn't exists"));
+        Flight flight = getFlight(bookingRequest.getFlightId(), bookedTrip.getTrip());
+        flightRepository.save(flight);
+        bookedTrip.setFlight(flight);
+        Hotel hotel = getHotel(bookingRequest.getBookingHotelRequest(), bookingRequest.getBookingHotelRequest().getHotelId());
+        hotelRepository.save(hotel);
+        bookedTrip.setHotel(hotel);
+        bookedTripRepository.save(bookedTrip);
+
     }
 }

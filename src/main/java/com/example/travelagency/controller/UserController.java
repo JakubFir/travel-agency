@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.model.dto.UpdateUserRequest;
 import com.example.travelagency.model.dto.UserDto;
 import com.example.travelagency.mapper.UserMapper;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,8 @@ public class UserController {
     }
 
     @PutMapping(path = "/{userId}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest){
-        userService.updateUser(userId, updateUserRequest);
-        return ResponseEntity.ok().build();
+    public UserDto updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest){
+        return userMapper.mapToUserDto(userService.updateUser(userId, updateUserRequest));
     }
 
 }

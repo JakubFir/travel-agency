@@ -16,8 +16,8 @@ public class AmadeusFlightController {
     private final AmadeusFlightSearch amadeusFlightSearch;
 
     @GetMapping
-    public AmadeusFlight getAvailableFlights(@RequestBody Trip origin) {
-         return amadeusFlightSearch.getAvailableFlights(origin);
+    public AmadeusFlight getAvailableFlights(@RequestBody Trip trip) {
+         return amadeusFlightSearch.getAvailableFlights(trip);
     }
 
 }

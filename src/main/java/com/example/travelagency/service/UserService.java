@@ -47,7 +47,7 @@ public class UserService  {
         } else throw new UsernameNotFoundException("User not found");
     }
 
-    public void updateUser(Long userId, UpdateUserRequest updateUserRequest) {
+    public User updateUser(Long userId, UpdateUserRequest updateUserRequest) {
         if (checkIfUserExists(userId)) {
             User userToUpdate = userRepository.findById(userId).orElseThrow();
             if (updateUserRequest.getName() != null) {
@@ -69,8 +69,9 @@ public class UserService  {
                 userToUpdate.setEmail(updateUserRequest.getEmail());
             }
             userRepository.save(userToUpdate);
+            return userToUpdate;
         }
-
+        return new User();
     }
 
     private boolean checkIfUserExists(Long userId) {

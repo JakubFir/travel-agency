@@ -1,18 +1,16 @@
 package com.example.travelagency.service;
 
 import com.example.travelagency.mapper.TripMapper;
-import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
 import com.example.travelagency.repository.NewsLetterRepository;
-import com.example.travelagency.repository.SubscriberRepository;
 import com.example.travelagency.repository.TripRepository;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
-import com.example.travelagency.service.observer.ObservableImpl;
+import com.example.travelagency.service.observer.NewsLetterObservable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +37,7 @@ class TripServiceTest {
     private NewsLetterRepository newsLetterRepository;
     @Mock
     private TripMapper tripMapper;
-    private ObservableImpl observable;
+    private NewsLetterObservable observable;
 
     private TripService tripService;
 

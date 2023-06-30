@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserMapper {
 
-    private final PasswordEncoder passwordEncoder;
 
     public UserDto mapToUserDto(User user) {
         return UserDto.builder()

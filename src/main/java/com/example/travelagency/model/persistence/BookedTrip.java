@@ -14,6 +14,8 @@ public class BookedTrip {
     @Id
     @GeneratedValue
     private Long id;
+    @OneToOne
+    private Trip trip;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

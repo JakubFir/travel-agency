@@ -13,7 +13,7 @@ import java.util.List;
 @RestController()
 @RequiredArgsConstructor
 @RequestMapping(path = "hotels")
-public class BookingController {
+public class BookingHotelController {
 
     private final BookingHotelSearch bookingHotelSearch;
     private final BookingHotelService bookingHotelService;

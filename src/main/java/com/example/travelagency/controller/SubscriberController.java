@@ -5,9 +5,7 @@ import com.example.travelagency.model.dto.SubscriberDto;
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.SubscriberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,4 @@ public class SubscriberController {
     public List<SubscriberDto> getAllSubscribers(){
         return subscriberMapper.mapToSubscriberDtoList(subscriberService.getAllSubscribers());
     }
-
 }
