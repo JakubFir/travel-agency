@@ -1,5 +1,6 @@
 package com.example.travelagency.controller;
 
+import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
@@ -21,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @SpringJUnitWebConfig
 @WebMvcTest(AmadeusFlightController.class)
@@ -28,6 +30,8 @@ class AmadeusFlightControllerTest {
 
     @MockBean
     private AmadeusFlightSearch amadeusFlightSearch;
+    @MockBean
+    private TripMapper tripMapper;
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,9 +49,10 @@ class AmadeusFlightControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders
-                                .get("/flight")
+                                .post("/flight")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(jsonContent))
+                                .content(jsonContent)
+                                .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

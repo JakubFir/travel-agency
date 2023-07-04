@@ -15,8 +15,12 @@ public class SubscriberObserver implements Observer {
     private final MailCreatorService mailCreatorService;
 
     @Override
-    public void update(Subscriber subscriber, TripDto tripDto) {
-        Mail mail = mailCreatorService.createNewTrioMail(subscriber.getEmail(), tripDto);
-        simpleMailService.sendEmail(mail, mail.getSubject());
+    public void update(Observer observer, TripDto tripDto) {
+            Subscriber subscriber = (Subscriber) observer;
+            String email = subscriber.getEmail();
+            Mail mail = mailCreatorService.createNewTrioMail(email, tripDto);
+            System.out.println(email);
+            simpleMailService.sendEmail(mail, mail.getSubject());
+
     }
 }

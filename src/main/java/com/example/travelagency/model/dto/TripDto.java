@@ -13,4 +13,7 @@ public class TripDto {
     private String destination;
     private String origin;
     private String description;
+    private String originIataCode;
+    private String destinationsIataCode;
+
 }

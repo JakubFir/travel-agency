@@ -31,7 +31,7 @@ public class TripService {
         List<NewsLetter> newsLetterList = newsLetterRepository.findAll();
         for(NewsLetter newsLetter : newsLetterList){
             if (newsLetter.getNewsLetterTitle().equals("New Trip")){
-                newsLetterObservable.notifyObs(tripMapper.mapToTripDto(trip), newsLetter.getSubscriberList());
+                newsLetterObservable.notifyObs(tripMapper.mapToTripDto(trip), newsLetter.getObserverList());
             }
         }
     }

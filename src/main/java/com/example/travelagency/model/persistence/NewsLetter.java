@@ -1,7 +1,6 @@
 package com.example.travelagency.model.persistence;
 
-import com.example.travelagency.service.observer.Observable;
-import com.example.travelagency.service.observer.Observer;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +20,6 @@ public class NewsLetter {
 
     private String newsLetterTitle;
     @ManyToMany
-    private List<Subscriber> subscriberList;
+    private List<Subscriber> observerList;
 
 }

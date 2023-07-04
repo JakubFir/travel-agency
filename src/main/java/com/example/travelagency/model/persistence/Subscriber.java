@@ -22,9 +22,7 @@ public class Subscriber implements Observer {
     @ManyToMany
     @JoinColumn(name = "news_letter_id")
     private List<NewsLetter> newsLetter;
-
     @Override
-    public void update(Subscriber subscriber, TripDto tripDto) {
-
+    public void update(Observer observer, TripDto tripDto) {
     }
 }

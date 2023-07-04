@@ -1,6 +1,7 @@
 package com.example.travelagency.mapper;
 
 import com.example.travelagency.model.dto.SubscriberDto;
+
 import com.example.travelagency.model.persistence.Subscriber;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class SubscriberMapper {
                 .build();
     }
 
-    public List<SubscriberDto> mapToSubscriberDtoList(List<Subscriber> allSubscribers) {
-        return allSubscribers.stream().map(this::mapToSubscriberDto).collect(Collectors.toList());
+    public List<SubscriberDto> mapToSubscriberDtoList(List<Subscriber> allObservers) {
+        return allObservers.stream().map(this::mapToSubscriberDto).collect(Collectors.toList());
     }
 }

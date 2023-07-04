@@ -1,23 +1,23 @@
 package com.example.travelagency.controller;
 
+import com.example.travelagency.mapper.TripMapper;
+import com.example.travelagency.model.dto.TripDto;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/flight")
 @RequiredArgsConstructor
 public class AmadeusFlightController {
     private final AmadeusFlightSearch amadeusFlightSearch;
+    private final TripMapper tripMapper;
 
-    @GetMapping
-    public AmadeusFlight getAvailableFlights(@RequestBody Trip trip) {
-         return amadeusFlightSearch.getAvailableFlights(trip);
+    @PostMapping
+    public AmadeusFlight getAvailableFlights(@RequestBody TripDto trip) {
+         return amadeusFlightSearch.getAvailableFlights(tripMapper.mapToTrip(trip));
     }
 
 }

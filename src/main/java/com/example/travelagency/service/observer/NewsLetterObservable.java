@@ -15,19 +15,19 @@ public class NewsLetterObservable implements Observable {
     private final SubscriberObserver subscriberObserver;
 
     @Override
-    public void register(Subscriber subscriber, Long newsLetterId) {
-        newsLetterService.subscribeToGivenNewsLetter(newsLetterId, subscriber);
+    public void register(Observer observer, Long newsLetterId) {
+        newsLetterService.subscribeToGivenNewsLetter(newsLetterId, (Subscriber) observer);
     }
 
     @Override
-    public void notifyObs(TripDto tripDto, List<Subscriber> subscriberList) {
-        for (Subscriber subscriber : subscriberList) {
-            subscriberObserver.update(subscriber, tripDto);
+    public void notifyObs(TripDto tripDto, List<? extends Observer> observerList) {
+        for (Observer observer : observerList) {
+                subscriberObserver.update(observer, tripDto);
         }
     }
 
     @Override
-    public void removeObserver(Subscriber subscriber, Long newsLetterId) {
-        newsLetterService.unsubscribeToGivenNewsLetter(subscriber,newsLetterId);
+    public void removeObserver(Observer observer, Long newsLetterId) {
+        newsLetterService.unsubscribeToGivenNewsLetter((Subscriber) observer, newsLetterId);
     }
 }

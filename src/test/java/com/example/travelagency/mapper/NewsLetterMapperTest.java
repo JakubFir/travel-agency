@@ -32,19 +32,19 @@ class NewsLetterMapperTest {
         // Given
         NewsLetter newsLetter = new NewsLetter();
         newsLetter.setNewsLetterTitle("Example Newsletter");
-        List<Subscriber> subscriberList = new ArrayList<>();
-        Subscriber subscriber1 = new Subscriber();
-        subscriber1.setId(1L);
-        subscriber1.setEmail("John");
-        Subscriber subscriber2 = new Subscriber();
-        subscriber2.setId(2L);
-        subscriber2.setEmail("Jane");
-        subscriberList.add(subscriber1);
-        subscriberList.add(subscriber2);
-        newsLetter.setSubscriberList(subscriberList);
+        List<Subscriber> observerList = new ArrayList<>();
+        Subscriber observer1 = new Subscriber();
+        observer1.setId(1L);
+        observer1.setEmail("John");
+        Subscriber observer2 = new Subscriber();
+        observer2.setId(2L);
+        observer2.setEmail("Jane");
+        observerList.add(observer1);
+        observerList.add(observer2);
+        newsLetter.setObserverList(observerList);
 
-        when(subscriberMapper.mapToSubscriberDto(subscriber1)).thenReturn(new SubscriberDto("John"));
-        when(subscriberMapper.mapToSubscriberDto(subscriber2)).thenReturn(new SubscriberDto("Jane"));
+        when(subscriberMapper.mapToSubscriberDto(observer1)).thenReturn(new SubscriberDto("John"));
+        when(subscriberMapper.mapToSubscriberDto(observer2)).thenReturn(new SubscriberDto("Jane"));
 
         // When
         NewsLetterDto newsLetterDto = newsLetterMapper.mapToNewsletterDto(newsLetter);
@@ -59,25 +59,25 @@ class NewsLetterMapperTest {
         List<NewsLetter> newsLetters = new ArrayList<>();
         NewsLetter newsLetter1 = new NewsLetter();
         newsLetter1.setNewsLetterTitle("Newsletter 1");
-        List<Subscriber> subscriberList1 = new ArrayList<>();
-        Subscriber subscriber1 = new Subscriber();
-        subscriber1.setId(1L);
-        subscriber1.setEmail("Joh");
-        subscriberList1.add(subscriber1);
-        newsLetter1.setSubscriberList(subscriberList1);
+        List<Subscriber> observerList1 = new ArrayList<>();
+        Subscriber observer1 = new Subscriber();
+        observer1.setId(1L);
+        observer1.setEmail("Joh");
+        observerList1.add(observer1);
+        newsLetter1.setObserverList(observerList1);
         newsLetters.add(newsLetter1);
 
         NewsLetter newsLetter2 = new NewsLetter();
         newsLetter2.setNewsLetterTitle("Newsletter 2");
-        List<Subscriber> subscriberList2 = new ArrayList<>();
-        Subscriber subscriber2 = new Subscriber();
-        subscriber2.setId(2L);
-        subscriber2.setEmail("Jane");
-        subscriberList2.add(subscriber2);
-        newsLetter2.setSubscriberList(subscriberList2);
+        List<Subscriber> observerList2 = new ArrayList<>();
+        Subscriber observer2 = new Subscriber();
+        observer2.setId(2L);
+        observer2.setEmail("Jane");
+        observerList2.add(observer2);
+        newsLetter2.setObserverList(observerList2);
         newsLetters.add(newsLetter2);
-        when(subscriberMapper.mapToSubscriberDto(subscriber1)).thenReturn(new SubscriberDto("Joh"));
-        when(subscriberMapper.mapToSubscriberDto(subscriber2)).thenReturn(new SubscriberDto("Jane"));
+        when(subscriberMapper.mapToSubscriberDto(observer1)).thenReturn(new SubscriberDto("Joh"));
+        when(subscriberMapper.mapToSubscriberDto(observer2)).thenReturn(new SubscriberDto("Jane"));
 
         //When
         List<NewsLetterDto> newsLetterDtoList = newsLetterMapper.mapToNewsletterDtoList(newsLetters);

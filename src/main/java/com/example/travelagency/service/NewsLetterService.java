@@ -22,34 +22,34 @@ public class NewsLetterService {
         NewsLetter newsLetterToSubscribe = newsLetterRepository.findById(newsLetterId)
                 .orElseThrow(() -> new NewsLetterNotFoundException("Newsletter with given id doesn't exists"));
         if (checkIfSubscriberIsRegistered(subscriber)) {
-            Subscriber existingSubscriber = subscriberRepository.findByEmail(subscriber.getEmail())
+            Subscriber existingObserver = subscriberRepository.findByEmail(subscriber.getEmail())
                     .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesn't exists"));
-            existingSubscriber.getNewsLetter().add(newsLetterToSubscribe);
-            newsLetterToSubscribe.getSubscriberList().add(existingSubscriber);
-            subscriberRepository.save(existingSubscriber);
+            existingObserver.getNewsLetter().add(newsLetterToSubscribe);
+            newsLetterToSubscribe.getObserverList().add(existingObserver);
+            subscriberRepository.save(existingObserver);
             newsLetterRepository.save(newsLetterToSubscribe);
         } else registerSubscriberAndSubscribe(subscriber, newsLetterToSubscribe);
     }
 
     private void registerSubscriberAndSubscribe(Subscriber subscriber, NewsLetter newsLetterToSubscribe) {
-        Subscriber newSubscriber = new Subscriber();
-        newSubscriber.setNewsLetter(new ArrayList<>());
-        newSubscriber.setEmail(subscriber.getEmail());
-        newSubscriber.getNewsLetter().add(newsLetterToSubscribe);
-        newsLetterToSubscribe.getSubscriberList().add(newSubscriber);
-        subscriberRepository.save(newSubscriber);
+        Subscriber newObserver = new Subscriber();
+        newObserver.setNewsLetter(new ArrayList<>());
+        newObserver.setEmail(subscriber.getEmail());
+        newObserver.getNewsLetter().add(newsLetterToSubscribe);
+        newsLetterToSubscribe.getObserverList().add(newObserver);
+        subscriberRepository.save(newObserver);
         newsLetterRepository.save(newsLetterToSubscribe);
     }
     public void unsubscribeToGivenNewsLetter(Subscriber subscriber, Long newsletterId) {
-        Subscriber subscriberToRemoveFromNewsLetter =  subscriberRepository.findByEmail(subscriber.getEmail())
+        Subscriber observerToRemoveFromNewsLetter =  subscriberRepository.findByEmail(subscriber.getEmail())
                 .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesnt exists"));
         NewsLetter newsLetter = newsLetterRepository.findById(newsletterId)
                 .orElseThrow(() -> new NewsLetterNotFoundException("newsletter with given id doesnt exists"));
 
-        subscriberToRemoveFromNewsLetter.getNewsLetter().removeIf(news -> news.getId().equals(newsletterId));
-        newsLetter.getSubscriberList().removeIf(sub -> sub.getEmail().equals(subscriberToRemoveFromNewsLetter.getEmail()));
+        observerToRemoveFromNewsLetter.getNewsLetter().removeIf(news -> news.getId().equals(newsletterId));
+        newsLetter.getObserverList().removeIf(sub -> sub.getEmail().equals(observerToRemoveFromNewsLetter.getEmail()));
 
-        subscriberRepository.save(subscriberToRemoveFromNewsLetter);
+        subscriberRepository.save(observerToRemoveFromNewsLetter);
         newsLetterRepository.save(newsLetter);
     }
 

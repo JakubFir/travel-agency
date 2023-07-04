@@ -3,9 +3,11 @@ package com.example.travelagency.controller;
 import com.example.travelagency.mapper.NewsLetterMapper;
 import com.example.travelagency.model.dto.NewsLetterDto;
 import com.example.travelagency.model.persistence.NewsLetter;
+
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.NewsLetterService;
 import com.example.travelagency.service.observer.NewsLetterObservable;
+import com.example.travelagency.service.observer.Observer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

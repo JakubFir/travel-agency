@@ -14,12 +14,21 @@ public class TripMapper {
                 .destination(trip.getDestination())
                 .origin(trip.getOrigin())
                 .description(trip.getDescription())
+                .originIataCode(trip.getOriginIataCode())
+                .destinationsIataCode(trip.getDestinationsIataCode())
                 .build();
-
-
     }
 
     public List<TripDto> mapToTripDtoList(List<Trip> listOfTrips) {
         return listOfTrips.stream().map(this::mapToTripDto).collect(Collectors.toList());
+    }
+
+    public Trip mapToTrip(TripDto trip) {
+        return new Trip(
+                trip.getOrigin(),
+                trip.getOriginIataCode(),
+                trip.getDestinationsIataCode(),
+                trip.getDestination(),
+                trip.getDescription());
     }
 }

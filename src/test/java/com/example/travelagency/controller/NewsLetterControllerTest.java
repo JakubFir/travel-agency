@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.mapper.NewsLetterMapper;
 import com.example.travelagency.model.dto.NewsLetterDto;
 import com.example.travelagency.model.persistence.NewsLetter;
+
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.NewsLetterService;
 import com.example.travelagency.service.observer.NewsLetterObservable;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -77,12 +77,12 @@ class NewsLetterControllerTest {
     @Test
     @WithMockUser
     void subscribeToGivenNewsLetter() throws Exception {
-        Subscriber subscriber = new Subscriber(1L,"test", new ArrayList<>());
+        Subscriber observer = new Subscriber(1L,"test", new ArrayList<>());
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(subscriber);
+        String jsonContent = gson.toJson(observer);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/newsLetter/{id}", subscriber.getId())
+                        .post("/newsLetter/{id}", observer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent)
                         .with(csrf()))
@@ -91,12 +91,12 @@ class NewsLetterControllerTest {
     @Test
     @WithMockUser
     void unsubscribeToGivenNewsLetter() throws Exception {
-        Subscriber subscriber = new Subscriber(1L,"test", new ArrayList<>());
+        Subscriber observer = new Subscriber(1L,"test", new ArrayList<>());
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(subscriber);
+        String jsonContent = gson.toJson(observer);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/newsLetter/{id}", subscriber.getId())
+                        .delete("/newsLetter/{id}", observer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent)
                         .with(csrf()))

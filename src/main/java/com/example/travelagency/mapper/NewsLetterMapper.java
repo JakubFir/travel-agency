@@ -16,7 +16,7 @@ public class NewsLetterMapper {
     public NewsLetterDto mapToNewsletterDto(NewsLetter newsLetter) {
         return NewsLetterDto.builder()
                 .name(newsLetter.getNewsLetterTitle())
-                .subscriberList(newsLetter.getSubscriberList().stream().map(subscriberMapper::mapToSubscriberDto).collect(Collectors.toList()))
+                .subscriberList(newsLetter.getObserverList().stream().map(subscriberMapper::mapToSubscriberDto).collect(Collectors.toList()))
                 .build();
     }
 

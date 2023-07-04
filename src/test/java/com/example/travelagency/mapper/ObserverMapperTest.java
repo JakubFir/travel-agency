@@ -5,7 +5,6 @@ import com.example.travelagency.model.persistence.Subscriber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class SubscriberMapperTest {
+class ObserverMapperTest {
     private SubscriberMapper subscriberMapper;
 
     @BeforeEach
@@ -38,17 +37,17 @@ class SubscriberMapperTest {
     @Test
     void mapToSubscriberDtoList() {
         //Given
-        List<Subscriber> subscribers = new ArrayList<>();
-        Subscriber subscriber1 = new Subscriber();
-        subscriber1.setEmail("subscriber1@example.com");
-        subscribers.add(subscriber1);
+        List<Subscriber> observers = new ArrayList<>();
+        Subscriber observer1 = new Subscriber();
+        observer1.setEmail("subscriber1@example.com");
+        observers.add(observer1);
 
-        Subscriber subscriber2 = new Subscriber();
-        subscriber2.setEmail("subscriber2@example.com");
-        subscribers.add(subscriber2);
+        Subscriber observer2 = new Subscriber();
+        observer2.setEmail("subscriber2@example.com");
+        observers.add(observer2);
 
         //When
-        List<SubscriberDto> subscriberDtoList = subscriberMapper.mapToSubscriberDtoList(subscribers);
+        List<SubscriberDto> subscriberDtoList = subscriberMapper.mapToSubscriberDtoList(observers);
 
         //Then
         assertEquals(2, subscriberDtoList.size());
