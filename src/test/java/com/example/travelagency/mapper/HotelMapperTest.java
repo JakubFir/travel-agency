@@ -20,11 +20,11 @@ class HotelMapperTest {
         // Given
         HotelModel hotelModel = new HotelModel();
         hotelModel.setZip("12345");
-        hotelModel.setCity_in_trans("Example City");
-        hotelModel.setReview_score(4.5);
-        hotelModel.setAddress_trans("Example Address");
-        hotelModel.setMin_total_price("100 USD");
-        hotelModel.setHas_free_parking("Yes");
+        hotelModel.setCityInTrans("Example City");
+        hotelModel.setReviewScore(4.5);
+        hotelModel.setAddressTrans("Example Address");
+        hotelModel.setMinTotalPrice("100 USD");
+        hotelModel.setHasFreeParking(true);
 
         // When
         Hotel hotel = hotelMapper.mapToHotel(hotelModel);
@@ -33,6 +33,6 @@ class HotelMapperTest {
         assertEquals("12345", hotel.getZip());
         assertEquals(4.5, hotel.getReviewScore());
         assertEquals("100 USD", hotel.getMinTotalPrice());
-        assertEquals("Yes", hotel.getHasFreeParking());
+        assertEquals(true, hotel.isHasFreeParking());
     }
 }

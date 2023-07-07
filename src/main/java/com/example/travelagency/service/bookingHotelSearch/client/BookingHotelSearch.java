@@ -1,5 +1,6 @@
 package com.example.travelagency.service.bookingHotelSearch.client;
 
+import com.example.travelagency.exceptions.PassedDateException;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
@@ -82,10 +83,11 @@ public class BookingHotelSearch {
             return responseEntity.getBody();
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage());
+            if (e.getMessage().contains("already passed")) {
+                throw new PassedDateException("The date has already passed");
+            }
             return new HotelInfo();
         }
 
     }
-
-
 }

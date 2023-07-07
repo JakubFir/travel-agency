@@ -51,4 +51,9 @@ public class GlobalHttpErrorHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
+    @ExceptionHandler(PassedDateException.class)
+    public ResponseEntity<Object> handlePassedDateException(PassedDateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
 }

@@ -16,7 +16,7 @@ public class BookingHotelService {
     private final BookingHotelSearch bookingHotelSearch;
 
     public HotelInfo getHotelsByCoordinates(BookingHotelRequest bookingHotelRequest) {
-        List<BookingAvailableHotelsInCity> availableHotels = bookingHotelSearch.getAvailableHotels(bookingHotelRequest.getOrigin());
+        List<BookingAvailableHotelsInCity> availableHotels = bookingHotelSearch.getAvailableHotels(bookingHotelRequest.getDestination());
         for (BookingAvailableHotelsInCity hotel : availableHotels) {
             if (hotel.getName().equals(bookingHotelRequest.getPlaceName())) {
                 return bookingHotelSearch.getHotelsByCoordinates(hotel, bookingHotelRequest);

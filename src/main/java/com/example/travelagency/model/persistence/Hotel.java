@@ -19,9 +19,9 @@ public class Hotel {
     private double reviewScore;
     private String addressTrans;
     private String minTotalPrice;
-    private String hasFreeParking;
+    private boolean hasFreeParking;
 
-    public Hotel(String zip, String cityInTrans, double reviewScore, String addressTrans, String minTotalPrice, String hasFreeParking) {
+    public Hotel(String zip, String cityInTrans, double reviewScore, String addressTrans, String minTotalPrice, boolean hasFreeParking) {
         this.zip = zip;
         this.cityInTrans = cityInTrans;
         this.reviewScore = reviewScore;

@@ -70,9 +70,9 @@ class BookingTripServiceTest {
         //Given
         Trip trip = new Trip("Test", "test", "test", "test", "test");
         User user = new User("test", "test", "test", "test", Role.USER);
-        Hotel hotel = new Hotel(1L, "test", "test", 2, "test", "test", "test");
+        Hotel hotel = new Hotel(1L, "test", "test", 2, "test", "test", true);
         Flight flight = new Flight("test", "test");
-        HotelModel hotelModel = new HotelModel("test", "test", 1L, 2, "test", "test", "test");
+        HotelModel hotelModel = new HotelModel("test", "test", 1L, 2, "test", "test", true);
         List<BookedTrip> list = new ArrayList<>();
         user.setBookedTrips(list);
         FlightInfo flightInfo = new FlightInfo("test", 1L, new ArrayList<>(), new FlightPriceInfo(new BigDecimal(1)));
@@ -100,7 +100,7 @@ class BookingTripServiceTest {
         BookedTrip bookedTrip = bookedTripArgumentCaptor.getValue();
 
         assertThat(bookedTrip.getUser().getName()).isEqualTo(user.getName());
-        assertThat(bookedTrip.getHotel().getHotelId()).isEqualTo(hotelModel.getHotel_id());
+        assertThat(bookedTrip.getHotel().getHotelId()).isEqualTo(hotelModel.getHotelId());
         assertThat(bookedTrip.getFlight().getArrival()).isEqualTo(flight.getArrival());
 
 

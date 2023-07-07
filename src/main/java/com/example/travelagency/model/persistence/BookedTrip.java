@@ -12,17 +12,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookedTrip {
     @Id
-    @GeneratedValue
-    private Long id;
-    @OneToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bookedTripId;
+    @ManyToOne
+    @JoinColumn(name = "trip_id")
     private Trip trip;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 

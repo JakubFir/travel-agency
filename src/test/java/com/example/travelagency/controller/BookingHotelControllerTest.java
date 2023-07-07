@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -53,7 +54,7 @@ class BookingHotelControllerTest {
         bookingHotelRequest.setCheckInDate("2023-07-01");
         bookingHotelRequest.setCheckOutDate("2023-07-05");
         bookingHotelRequest.setPlaceName("London");
-        bookingHotelRequest.setOrigin("New York");
+        bookingHotelRequest.setDestination("New York");
         bookingHotelRequest.setAdultsNumber(2);
         bookingHotelRequest.setHotelId(123456L);
 
@@ -64,9 +65,10 @@ class BookingHotelControllerTest {
 
         //When && Then
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/hotels")
+                        .post("/hotels")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
+                        .with(csrf())
                         .content(jsonContent))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", Matchers.notNullValue()));

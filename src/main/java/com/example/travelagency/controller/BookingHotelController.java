@@ -23,7 +23,7 @@ public class BookingHotelController {
         return bookingHotelSearch.getAvailableHotels(destination);
     }
 
-    @GetMapping
+    @PostMapping
     public HotelInfo getHotelsByCoordinates(@RequestBody BookingHotelRequest bookingHotelRequest) {
         return bookingHotelService.getHotelsByCoordinates(bookingHotelRequest);
     }

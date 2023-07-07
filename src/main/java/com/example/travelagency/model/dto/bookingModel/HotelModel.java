@@ -14,15 +14,15 @@ public class HotelModel {
     @JsonProperty("zip")
     private String zip;
     @JsonProperty("city_in_trans")
-    private String city_in_trans;
+    private String cityInTrans;
     @JsonProperty("hotel_id")
-    private Long hotel_id;
+    private Long hotelId;
     @JsonProperty("review_score")
-    private double review_score;
+    private double reviewScore;
     @JsonProperty("address_trans")
-    private String address_trans;
+    private String addressTrans;
     @JsonProperty("min_total_price")
-    private String min_total_price;
+    private String minTotalPrice;
     @JsonProperty("has_free_parking")
-    private String has_free_parking;
+    private boolean hasFreeParking;
 }

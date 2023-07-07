@@ -29,7 +29,6 @@ public class UserService  {
         user.setName(registerRequest.getName());
         user.setEmail(registerRequest.getEmail());
         user.setRole(Role.USER);
-
         userRepository.save(user);
     }
 

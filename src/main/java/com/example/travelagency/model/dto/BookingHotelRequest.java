@@ -13,7 +13,7 @@ public class BookingHotelRequest {
     private String checkInDate;
     private String checkOutDate;
     private String placeName;
-    private String origin;
+    private String destination;
     private int adultsNumber;
     private Long hotelId;
 }

@@ -57,22 +57,29 @@ public class BookingTripService {
 
     private Hotel getHotel(BookingHotelRequest bookingHotelRequest, Long hotelId) {
         HotelInfo hotelInfo = bookingHotelService.getHotelsByCoordinates(bookingHotelRequest);
-        HotelModel hotelModel = hotelInfo.getResult()
-                .stream()
-                .filter(hotelModel1 -> hotelModel1.getHotel_id().equals(hotelId))
-                .findFirst()
-                .orElseThrow();
-        return hotelMapper.mapToHotel(hotelModel);
+        if (hotelInfo.getResult() != null) {
+            return hotelMapper.mapToHotel(hotelInfo.getResult()
+                    .stream()
+                    .filter(hotelModel1 -> hotelModel1.getHotelId().equals(hotelId))
+                    .findFirst()
+                    .orElseThrow());
+        } else {
+            throw new FlightNotFoundException("Invalid hotel request");
+        }
     }
+
 
     private Flight getFlight(Long flightId, Trip tripToBook) {
         AmadeusFlight amadeusFlight = amadeusFlightSearch.getAvailableFlights(tripToBook);
-        FlightInfo flightInfo = amadeusFlight.getAvailableFlights()
-                .stream()
-                .filter(flight -> flight.getId().equals(flightId))
-                .findFirst()
-                .orElseThrow(() -> new FlightNotFoundException("Flight with given id doesn't exists"));
-        return flightMapper.mapFlightInfo(flightInfo);
+        if (amadeusFlight.getAvailableFlights() != null) {
+            return  flightMapper.mapFlightInfo(amadeusFlight.getAvailableFlights()
+                    .stream()
+                    .filter(flight -> flight.getId().equals(flightId))
+                    .findFirst()
+                    .orElseThrow(() -> new FlightNotFoundException("Flight with given id doesn't exists")));
+        } else {
+            throw new FlightNotFoundException("Invalid flight request");
+        }
     }
 
     public List<BookedTrip> getAllBookedTrips(Long userId) {
