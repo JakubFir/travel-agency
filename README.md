@@ -16,7 +16,7 @@ Travel Agency is a web application that provides various trips to users. It offe
 To launch the project, follow these steps:
 
 * create database `travel-agency` in MySQL
-* Run `./gradlew build -x tests` - which build our app without tests
+* Run `./gradlew build -x test` - which build our app without tests
 * `docker compose up ` which create a docker container of our app using our `Dockerfile` with database in MySQl
 
 ### Mappings:
