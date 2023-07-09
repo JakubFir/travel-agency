@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewsLetter {
+public class Newsletter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String newsLetterTitle;
+    private String newsletterTitle;
     @ManyToMany
     private List<Subscriber> observerList;
 

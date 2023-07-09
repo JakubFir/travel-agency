@@ -3,9 +3,13 @@ package com.example.travelagency.integrationTests;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.BookingRequest;
 import com.example.travelagency.model.dto.RegisterRequest;
+import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.testContainers.Testcontainers;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -16,14 +20,16 @@ import java.time.Duration;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BookingIT extends Testcontainers {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
+    @Order(1)
     public void canBookTrip(){
-        RegisterRequest registerRequest = new RegisterRequest("Test","test","test","test");
+        RegisterRequest registerRequest = new RegisterRequest("Test2","tes2cst","te2st","te2st@wp.pl");
         webTestClient.post()
                 .uri("/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -39,9 +45,23 @@ public class BookingIT extends Testcontainers {
                 .expectStatus().isOk();
 
         BookingHotelRequest bookingHotelRequest =
-                new BookingHotelRequest("2023-07-20","2023-07-29","Paris City Centre","Paris",1,51436L);
+                new BookingHotelRequest("2023-07-20","2023-07-29","Paris City Centre","Paris",1);
 
-        BookingRequest bookingRequest = new BookingRequest(1L, 1L,bookingHotelRequest);
+        HotelInfo hotelInfo = webTestClient
+                .post()
+                .uri("/hotels")
+                .bodyValue(bookingHotelRequest)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(HotelInfo.class)
+                .returnResult()
+                .getResponseBody();
+
+       Long LongHotelId = hotelInfo.getResult().get(0).getHotelId();
+
+        BookingHotelRequest finalBookingRequest =
+                new BookingHotelRequest("2023-07-20","2023-07-29","Paris City Centre","Paris",1,LongHotelId);
+        BookingRequest bookingRequest = new BookingRequest(1L, 1L,finalBookingRequest);
         webTestClient
                 .mutate()
                 .responseTimeout(Duration.ofMillis(30000))

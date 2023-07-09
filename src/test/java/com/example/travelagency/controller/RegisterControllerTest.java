@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,7 +32,7 @@ class RegisterControllerTest {
     @Test
     @WithMockUser
     void registerUser() throws Exception {
-        RegisterRequest registerRequest = new RegisterRequest("test", "password", "John Doe", "john@example.com");
+        RegisterRequest registerRequest = new RegisterRequest("test", "password", "John Doe", "johnmplem");
         Gson gson = new Gson();
         String jsonContent = gson.toJson(registerRequest);
 

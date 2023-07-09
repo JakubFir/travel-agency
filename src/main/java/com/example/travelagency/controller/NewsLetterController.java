@@ -2,19 +2,18 @@ package com.example.travelagency.controller;
 
 import com.example.travelagency.mapper.NewsLetterMapper;
 import com.example.travelagency.model.dto.NewsLetterDto;
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.NewsLetterService;
 import com.example.travelagency.service.observer.NewsLetterObservable;
-import com.example.travelagency.service.observer.Observer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("newsLetter")
+@RequestMapping("newsletter")
 @RequiredArgsConstructor
 public class NewsLetterController {
     private final NewsLetterService newsLetterService;
@@ -22,7 +21,7 @@ public class NewsLetterController {
     private final NewsLetterObservable observable;
 
     @PostMapping()
-    public void createNewsLetter(@RequestBody NewsLetter newsLetter) {
+    public void createNewsLetter(@RequestBody Newsletter newsLetter) {
         newsLetterService.createNewsLetter(newsLetter);
     }
 

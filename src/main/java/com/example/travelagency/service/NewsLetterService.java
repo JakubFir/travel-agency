@@ -1,13 +1,16 @@
 package com.example.travelagency.service;
 
+import com.example.travelagency.exceptions.BadEmailRequest;
+import com.example.travelagency.exceptions.EmailTakenException;
 import com.example.travelagency.exceptions.NewsLetterNotFoundException;
 import com.example.travelagency.exceptions.SubscriberNotFoundException;
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.repository.NewsLetterRepository;
 import com.example.travelagency.repository.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,31 +22,43 @@ public class NewsLetterService {
     private final SubscriberRepository subscriberRepository;
 
     public void subscribeToGivenNewsLetter(Long newsLetterId, Subscriber subscriber) {
-        NewsLetter newsLetterToSubscribe = newsLetterRepository.findById(newsLetterId)
+        Newsletter newsletterToSubscribe = newsLetterRepository.findById(newsLetterId)
                 .orElseThrow(() -> new NewsLetterNotFoundException("Newsletter with given id doesn't exists"));
-        if (checkIfSubscriberIsRegistered(subscriber)) {
+        if (subscriberRepository.existsByEmail(subscriber.getEmail())) {
             Subscriber existingObserver = subscriberRepository.findByEmail(subscriber.getEmail())
                     .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesn't exists"));
-            existingObserver.getNewsLetter().add(newsLetterToSubscribe);
-            newsLetterToSubscribe.getObserverList().add(existingObserver);
+            checkIfSubscriberDostSubscribeToNewsletter(existingObserver, newsletterToSubscribe);
+            existingObserver.getNewsLetter().add(newsletterToSubscribe);
+            newsletterToSubscribe.getObserverList().add(existingObserver);
             subscriberRepository.save(existingObserver);
-            newsLetterRepository.save(newsLetterToSubscribe);
-        } else registerSubscriberAndSubscribe(subscriber, newsLetterToSubscribe);
+            newsLetterRepository.save(newsletterToSubscribe);
+        } else registerSubscriberAndSubscribe(subscriber, newsletterToSubscribe);
     }
 
-    private void registerSubscriberAndSubscribe(Subscriber subscriber, NewsLetter newsLetterToSubscribe) {
+    private void checkIfSubscriberDostSubscribeToNewsletter(Subscriber existingObserver, Newsletter newsletterToSubscribe) {
+        if (existingObserver.getNewsLetter().contains(newsletterToSubscribe)) {
+            throw new EmailTakenException("User with the given email already subscribes to the given newsletter");
+        }
+    }
+
+    private void registerSubscriberAndSubscribe(Subscriber subscriber, Newsletter newsletterToSubscribe) {
         Subscriber newObserver = new Subscriber();
         newObserver.setNewsLetter(new ArrayList<>());
         newObserver.setEmail(subscriber.getEmail());
-        newObserver.getNewsLetter().add(newsLetterToSubscribe);
-        newsLetterToSubscribe.getObserverList().add(newObserver);
-        subscriberRepository.save(newObserver);
-        newsLetterRepository.save(newsLetterToSubscribe);
+        newObserver.getNewsLetter().add(newsletterToSubscribe);
+        newsletterToSubscribe.getObserverList().add(newObserver);
+        try {
+            subscriberRepository.save(newObserver);
+            newsLetterRepository.save(newsletterToSubscribe);
+        } catch (TransactionSystemException e) {
+            throw new BadEmailRequest("provide a valid Email");
+        }
     }
+
     public void unsubscribeToGivenNewsLetter(Subscriber subscriber, Long newsletterId) {
-        Subscriber observerToRemoveFromNewsLetter =  subscriberRepository.findByEmail(subscriber.getEmail())
+        Subscriber observerToRemoveFromNewsLetter = subscriberRepository.findByEmail(subscriber.getEmail())
                 .orElseThrow(() -> new SubscriberNotFoundException("Subscriber with given email doesnt exists"));
-        NewsLetter newsLetter = newsLetterRepository.findById(newsletterId)
+        Newsletter newsLetter = newsLetterRepository.findById(newsletterId)
                 .orElseThrow(() -> new NewsLetterNotFoundException("newsletter with given id doesnt exists"));
 
         observerToRemoveFromNewsLetter.getNewsLetter().removeIf(news -> news.getId().equals(newsletterId));
@@ -53,15 +68,11 @@ public class NewsLetterService {
         newsLetterRepository.save(newsLetter);
     }
 
-    private boolean checkIfSubscriberIsRegistered(Subscriber subscriber) {
-        return subscriberRepository.existsByEmail(subscriber.getEmail());
-    }
-
-    public void createNewsLetter(NewsLetter newsLetter) {
+    public void createNewsLetter(Newsletter newsLetter) {
         newsLetterRepository.save(newsLetter);
     }
 
-    public List<NewsLetter> getAllNewsLetters() {
+    public List<Newsletter> getAllNewsLetters() {
         return newsLetterRepository.findAll();
     }
 

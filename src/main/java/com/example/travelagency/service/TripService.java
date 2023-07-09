@@ -1,7 +1,7 @@
 package com.example.travelagency.service;
 
 import com.example.travelagency.mapper.TripMapper;
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 import com.example.travelagency.repository.NewsLetterRepository;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
@@ -28,9 +28,9 @@ public class TripService {
 
     public void addTrip(Trip trip) {
         tripRepository.save(trip);
-        List<NewsLetter> newsLetterList = newsLetterRepository.findAll();
-        for(NewsLetter newsLetter : newsLetterList){
-            if (newsLetter.getNewsLetterTitle().equals("New Trip")){
+        List<Newsletter> newsletterList = newsLetterRepository.findAll();
+        for(Newsletter newsLetter : newsletterList){
+            if (newsLetter.getNewsletterTitle().equals("New Trip")){
                 newsLetterObservable.notifyObs(tripMapper.mapToTripDto(trip), newsLetter.getObserverList());
             }
         }

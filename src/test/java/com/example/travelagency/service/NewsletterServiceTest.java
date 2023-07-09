@@ -1,6 +1,6 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.repository.NewsLetterRepository;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class NewsLetterServiceTest {
+class NewsletterServiceTest {
     @Mock
     private NewsLetterRepository newsLetterRepository;
     @Mock
@@ -39,7 +39,7 @@ class NewsLetterServiceTest {
     void subscribeToGivenNewsLetter() {
         //Given
         List<Subscriber> observerList = new ArrayList<>();
-        NewsLetter newsLetter = new NewsLetter();
+        Newsletter newsLetter = new Newsletter();
         newsLetter.setObserverList(observerList);
         Subscriber subscriber = new Subscriber();
         when(newsLetterRepository.findById(1L)).thenReturn(Optional.of(newsLetter));
@@ -50,14 +50,14 @@ class NewsLetterServiceTest {
         //Then
         ArgumentCaptor<Subscriber> subscriberArgumentCaptor = ArgumentCaptor.forClass(Subscriber.class);
         verify(subscriberRepository).save(subscriberArgumentCaptor.capture());
-        ArgumentCaptor<NewsLetter> newsLetterArgumentCaptor = ArgumentCaptor.forClass(NewsLetter.class);
+        ArgumentCaptor<Newsletter> newsLetterArgumentCaptor = ArgumentCaptor.forClass(Newsletter.class);
         verify(newsLetterRepository).save(newsLetterArgumentCaptor.capture());
     }
 
     @Test
     void createNewsLetter() {
         //Given
-        NewsLetter newsLetter = new NewsLetter();
+        Newsletter newsLetter = new Newsletter();
 
         //When
         newsLetterService.createNewsLetter(newsLetter);
@@ -69,24 +69,24 @@ class NewsLetterServiceTest {
     @Test
     void getAllNewsLetters() {
         //Given
-        List<NewsLetter> newsLetterList = new ArrayList<>();
+        List<Newsletter> newsletterList = new ArrayList<>();
 
         //When
-        List<NewsLetter> result = newsLetterService.getAllNewsLetters();
+        List<Newsletter> result = newsLetterService.getAllNewsLetters();
 
         //Then
-        assertThat(result).isEqualTo(newsLetterList);
+        assertThat(result).isEqualTo(newsletterList);
     }
     @Test
     void unsubscribeToGivenNewsLetter() {
         //Given
         Subscriber observer = new Subscriber(1L, "TEST", new ArrayList<>());
-        NewsLetter newsLetter = new NewsLetter(1L, "test", new ArrayList<>());
+        Newsletter newsLetter = new Newsletter(1L, "test", new ArrayList<>());
         List<Subscriber> observerList = new ArrayList<>();
         observerList.add(observer);
-        List<NewsLetter> newsLetterList = new ArrayList<>();
-        newsLetterList.add(newsLetter);
-        observer.setNewsLetter(newsLetterList);
+        List<Newsletter> newsletterList = new ArrayList<>();
+        newsletterList.add(newsLetter);
+        observer.setNewsLetter(newsletterList);
         newsLetter.setObserverList(observerList);
 
         when(subscriberRepository.findByEmail(any())).thenReturn(Optional.of(observer));
@@ -98,7 +98,7 @@ class NewsLetterServiceTest {
         //Then
         ArgumentCaptor<Subscriber> subscriberArgumentCaptor = ArgumentCaptor.forClass(Subscriber.class);
         verify(subscriberRepository).save(subscriberArgumentCaptor.capture());
-        ArgumentCaptor<NewsLetter> newsLetterArgumentCaptor = ArgumentCaptor.forClass(NewsLetter.class);
+        ArgumentCaptor<Newsletter> newsLetterArgumentCaptor = ArgumentCaptor.forClass(Newsletter.class);
         verify(newsLetterRepository).save(newsLetterArgumentCaptor.capture());
 
         assertThat(subscriberArgumentCaptor.getValue().getNewsLetter().size()).isEqualTo(0);

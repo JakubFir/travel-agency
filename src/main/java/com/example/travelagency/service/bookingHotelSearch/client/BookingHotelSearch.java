@@ -29,10 +29,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BookingHotelSearch {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingHotelSearch.class);
+    private final RestTemplate restTemplate;
+
     private final BookingHotelSearchConfig bookingHotelSearchConfig;
 
     public List<BookingAvailableHotelsInCity> getAvailableHotels(String destination) {
-        RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", bookingHotelSearchConfig.getBookingApiKey());
@@ -56,8 +57,6 @@ public class BookingHotelSearch {
     }
 
     public HotelInfo getHotelsByCoordinates(BookingAvailableHotelsInCity availableHotelsInCity, BookingHotelRequest bookingHotelRequest) {
-        RestTemplate restTemplate = new RestTemplate();
-
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Key", bookingHotelSearchConfig.getBookingApiKey());
         headers.set("X-RapidAPI-Host", bookingHotelSearchConfig.getBookingApiHost());

@@ -2,7 +2,7 @@ package com.example.travelagency.controller;
 
 import com.example.travelagency.mapper.NewsLetterMapper;
 import com.example.travelagency.model.dto.NewsLetterDto;
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 
 import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.NewsLetterService;
@@ -29,7 +29,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 @SpringJUnitWebConfig
 @WebMvcTest(NewsLetterController.class)
-class NewsLetterControllerTest {
+class NewsletterControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -42,13 +42,13 @@ class NewsLetterControllerTest {
     @Test
     @WithMockUser
     void createNewsLetter() throws Exception {
-        NewsLetter newsLetter = new NewsLetter(1L, "test", new ArrayList<>());
+        Newsletter newsLetter = new Newsletter(1L, "test", new ArrayList<>());
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(newsLetter);
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post("/newsLetter")
+                        .post("/newsletter")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent)
                         .with(csrf()))
@@ -58,9 +58,9 @@ class NewsLetterControllerTest {
     @Test
     @WithMockUser
     void getAllNewsLetters() throws Exception {
-        NewsLetter newsLetter = new NewsLetter(1L, "test", new ArrayList<>());
+        Newsletter newsLetter = new Newsletter(1L, "test", new ArrayList<>());
         NewsLetterDto newsLetterDto = new NewsLetterDto("test", new ArrayList<>());
-        List<NewsLetter> list = new ArrayList<>();
+        List<Newsletter> list = new ArrayList<>();
         list.add(newsLetter);
 
         when(newsLetterService.getAllNewsLetters()).thenReturn(list);
@@ -69,7 +69,7 @@ class NewsLetterControllerTest {
         //When && then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/newsLetter"))
+                        .get("/newsletter"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name", Matchers.is("test")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -82,7 +82,7 @@ class NewsLetterControllerTest {
         String jsonContent = gson.toJson(observer);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/newsLetter/{id}", observer.getId())
+                        .post("/newsletter/{id}", observer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent)
                         .with(csrf()))
@@ -96,7 +96,7 @@ class NewsLetterControllerTest {
         String jsonContent = gson.toJson(observer);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/newsLetter/{id}", observer.getId())
+                        .delete("/newsletter/{id}", observer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent)
                         .with(csrf()))

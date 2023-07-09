@@ -16,4 +16,12 @@ public class BookingHotelRequest {
     private String destination;
     private int adultsNumber;
     private Long hotelId;
+
+    public BookingHotelRequest(String checkInDate, String checkOutDate, String placeName, String destination, int adultsNumber) {
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.placeName = placeName;
+        this.destination = destination;
+        this.adultsNumber = adultsNumber;
+    }
 }

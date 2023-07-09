@@ -2,7 +2,7 @@ package com.example.travelagency.mapper;
 
 import com.example.travelagency.model.dto.NewsLetterDto;
 import com.example.travelagency.model.dto.SubscriberDto;
-import com.example.travelagency.model.persistence.NewsLetter;
+import com.example.travelagency.model.persistence.Newsletter;
 import com.example.travelagency.model.persistence.Subscriber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
-class NewsLetterMapperTest {
+class NewsletterMapperTest {
     @Mock
     private NewsLetterMapper newsLetterMapper;
     @Mock
@@ -30,8 +30,8 @@ class NewsLetterMapperTest {
     @Test
     void mapToNewsletterDto() {
         // Given
-        NewsLetter newsLetter = new NewsLetter();
-        newsLetter.setNewsLetterTitle("Example Newsletter");
+        Newsletter newsLetter = new Newsletter();
+        newsLetter.setNewsletterTitle("Example Newsletter");
         List<Subscriber> observerList = new ArrayList<>();
         Subscriber observer1 = new Subscriber();
         observer1.setId(1L);
@@ -56,31 +56,31 @@ class NewsLetterMapperTest {
     @Test
     void mapToNewsletterDtoList() {
         // Given
-        List<NewsLetter> newsLetters = new ArrayList<>();
-        NewsLetter newsLetter1 = new NewsLetter();
-        newsLetter1.setNewsLetterTitle("Newsletter 1");
+        List<Newsletter> newsletters = new ArrayList<>();
+        Newsletter newsletter1 = new Newsletter();
+        newsletter1.setNewsletterTitle("Newsletter 1");
         List<Subscriber> observerList1 = new ArrayList<>();
         Subscriber observer1 = new Subscriber();
         observer1.setId(1L);
         observer1.setEmail("Joh");
         observerList1.add(observer1);
-        newsLetter1.setObserverList(observerList1);
-        newsLetters.add(newsLetter1);
+        newsletter1.setObserverList(observerList1);
+        newsletters.add(newsletter1);
 
-        NewsLetter newsLetter2 = new NewsLetter();
-        newsLetter2.setNewsLetterTitle("Newsletter 2");
+        Newsletter newsletter2 = new Newsletter();
+        newsletter2.setNewsletterTitle("Newsletter 2");
         List<Subscriber> observerList2 = new ArrayList<>();
         Subscriber observer2 = new Subscriber();
         observer2.setId(2L);
         observer2.setEmail("Jane");
         observerList2.add(observer2);
-        newsLetter2.setObserverList(observerList2);
-        newsLetters.add(newsLetter2);
+        newsletter2.setObserverList(observerList2);
+        newsletters.add(newsletter2);
         when(subscriberMapper.mapToSubscriberDto(observer1)).thenReturn(new SubscriberDto("Joh"));
         when(subscriberMapper.mapToSubscriberDto(observer2)).thenReturn(new SubscriberDto("Jane"));
 
         //When
-        List<NewsLetterDto> newsLetterDtoList = newsLetterMapper.mapToNewsletterDtoList(newsLetters);
+        List<NewsLetterDto> newsLetterDtoList = newsLetterMapper.mapToNewsletterDtoList(newsletters);
 
         //Then
         assertEquals(2, newsLetterDtoList.size());

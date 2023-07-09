@@ -1,12 +1,15 @@
 package com.example.travelagency.controller;
 
+import com.example.travelagency.exceptions.BadEmailRequest;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.exceptions.EmptyFieldsException;
 import com.example.travelagency.service.UserService;
 import com.example.travelagency.validator.RequestValidator;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,12 +21,13 @@ public class RegisterController {
     private final RequestValidator requestValidator;
 
     @PostMapping()
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest ) {
-        requestValidator.validateRegisterRequest(registerRequest);
-        try {
-            userService.registerUser(registerRequest);
-        } catch (Exception e) {
-            throw new EmptyFieldsException("All fields must be filled");
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
+        if (requestValidator.validateRegisterRequest(registerRequest)) {
+            try {
+                userService.registerUser(registerRequest);
+            } catch (ConstraintViolationException e) {
+                throw new BadEmailRequest("Provide a valid information's");
+            }
         }
         return ResponseEntity.ok().build();
     }

@@ -62,7 +62,7 @@ public class BookingTripService {
                     .stream()
                     .filter(hotelModel1 -> hotelModel1.getHotelId().equals(hotelId))
                     .findFirst()
-                    .orElseThrow());
+                    .orElseThrow(() -> new FlightNotFoundException("Invalid hotel request")));
         } else {
             throw new FlightNotFoundException("Invalid hotel request");
         }

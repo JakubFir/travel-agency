@@ -31,7 +31,7 @@ public abstract class Testcontainers {
     }
 
     @Container
-    protected static GenericContainer<?> backendContainer = new GenericContainer<>(DockerImageName.parse("travel"))
+    protected static GenericContainer<?> backendContainer = new GenericContainer<>(DockerImageName.parse("travel-agency-backend"))
             .withExposedPorts(8080)
             .withNetwork(mySQLContainer.getNetwork())
             .withNetworkAliases("backend")

@@ -2,6 +2,9 @@ package com.example.travelagency.model.persistence;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,13 +21,18 @@ public class User implements UserDetails   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
+    @NotNull(message ="username can not be empty")
+    @NotBlank
     private String username;
-    @NonNull
+    @NotNull(message ="password can not be empty")
+    @NotBlank
     private String password;
-    @NonNull
+    @NotNull(message ="name can not be empty")
+    @NotBlank
     private String name;
-    @NonNull
+    @NotNull(message ="email can not be empty")
+    @NotBlank
+    @Email
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;

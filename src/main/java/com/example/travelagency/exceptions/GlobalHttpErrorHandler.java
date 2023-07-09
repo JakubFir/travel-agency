@@ -32,10 +32,12 @@ public class GlobalHttpErrorHandler {
     public ResponseEntity<Object> handleHttpClientError(ClientResponseException exception) {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(exception.getMessage());
     }
+
     @ExceptionHandler(FlightNotFoundException.class)
     public ResponseEntity<Object> handleFlightNotFoundException(FlightNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
+
     @ExceptionHandler(TripNotFoundException.class)
     public ResponseEntity<Object> handleTripNotFoundException(TripNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
@@ -53,6 +55,11 @@ public class GlobalHttpErrorHandler {
 
     @ExceptionHandler(PassedDateException.class)
     public ResponseEntity<Object> handlePassedDateException(PassedDateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(BadEmailRequest.class)
+    public ResponseEntity<Object> handleBadEmailRequestException(BadEmailRequest exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
