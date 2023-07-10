@@ -2,7 +2,9 @@ package com.example.travelagency.service;
 
 import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.model.persistence.Newsletter;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.repository.NewsLetterRepository;
+import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.model.persistence.Trip;
@@ -24,6 +26,7 @@ public class TripService {
     private final NewsLetterRepository newsLetterRepository;
     private final TripMapper tripMapper;
     private final NewsLetterObservable newsLetterObservable;
+    private final UserRepository userRepository;
 
 
     public void addTrip(Trip trip) {
@@ -40,12 +43,12 @@ public class TripService {
         return tripRepository.findAll();
     }
 
-    public TripInfo getTripInfo(Long tripId) {
+    public TripInfo getTripInfo(Long tripId,Long userId) {
         Trip tripToGetInformation = tripRepository.findById(tripId).orElseThrow();
         TripInfo tripInfo = new TripInfo();
 
         tripInfo.setTrip(tripToGetInformation);
-        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripToGetInformation).getAvailableFlights());
+        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripToGetInformation,userId).getAvailableFlights());
         tripInfo.setAvailableHotelsInCities(bookingHotelSearch.getAvailableHotels(tripToGetInformation.getDestinationsIataCode()));
         return tripInfo;
     }

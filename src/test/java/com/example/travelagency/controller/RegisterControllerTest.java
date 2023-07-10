@@ -32,7 +32,7 @@ class RegisterControllerTest {
     @Test
     @WithMockUser
     void registerUser() throws Exception {
-        RegisterRequest registerRequest = new RegisterRequest("test", "password", "John Doe", "johnmplem");
+        RegisterRequest registerRequest = new RegisterRequest("test", "password", "John Doe", "johnmplem","Paris","PAR");
         Gson gson = new Gson();
         String jsonContent = gson.toJson(registerRequest);
 

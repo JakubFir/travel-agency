@@ -22,25 +22,24 @@ class TripMapperTest {
     @Test
     void mapToTripDto() {
         // Given
-        Trip trip = new Trip("London", "LHR", "JFK", "New York", "Trip description");
+        Trip trip = new Trip("LHR", "London", "JFK");
 
         // When
         TripDto tripDto = tripMapper.mapToTripDto(trip);
 
         // Then
-        assertEquals("London", tripDto.getOrigin());
-        assertEquals("New York", tripDto.getDestination());
-        assertEquals("Trip description", tripDto.getDescription());
+        assertEquals("London", tripDto.getDestination());
+        assertEquals("JFK", tripDto.getDescription());
     }
 
     @Test
     void mapToTripDtoList() {
         // Given
         List<Trip> trips = new ArrayList<>();
-        Trip trip1 = new Trip("London", "LHR", "JFK", "New York", "Trip description 1");
+        Trip trip1 = new Trip("LHR", "London", "JFK");
         trips.add(trip1);
 
-        Trip trip2 = new Trip("Paris", "CDG", "LAX", "Los Angeles", "Trip description 2");
+        Trip trip2 = new Trip("CDG", "Los Angeles", "LAX");
         trips.add(trip2);
 
         // When
@@ -50,13 +49,11 @@ class TripMapperTest {
         assertEquals(2, tripDtoList.size());
 
         TripDto tripDto1 = tripDtoList.get(0);
-        assertEquals("London", tripDto1.getOrigin());
-        assertEquals("New York", tripDto1.getDestination());
-        assertEquals("Trip description 1", tripDto1.getDescription());
+        assertEquals("London", tripDto1.getDestination());
+        assertEquals("JFK", tripDto1.getDescription());
 
         TripDto tripDto2 = tripDtoList.get(1);
-        assertEquals("Paris", tripDto2.getOrigin());
         assertEquals("Los Angeles", tripDto2.getDestination());
-        assertEquals("Trip description 2", tripDto2.getDescription());
+        assertEquals("LAX", tripDto2.getDescription());
     }
 }

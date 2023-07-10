@@ -39,7 +39,7 @@ class UserServiceTest {
     @Test
     void registerUser() {
         //Given
-        RegisterRequest registerRequest = new RegisterRequest("Test","test","test","test");
+        RegisterRequest registerRequest = new RegisterRequest("Test","test","test","test","Paris","PAR");
         when(passwordEncoder.encode(registerRequest.getPassword())).thenReturn("test");
 
         //When
@@ -53,7 +53,7 @@ class UserServiceTest {
     @Test
     void getUser() {
         //Given
-        User user = new User("Test", "test","test","test", Role.USER);
+        User user = new User("Test", "test","test","test","Paris","PAR", Role.USER);
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
 
         //When
@@ -68,7 +68,7 @@ class UserServiceTest {
     void getAllUsers() {
         //Given
         List<User> listOfUsers = new ArrayList<>();
-        User user = new User("Test", "test","test","test", Role.USER);
+        User user = new User("Test", "test","test","test", "Paris","PAR",Role.USER);
         listOfUsers.add(user);
         when(userRepository.findAll()).thenReturn(listOfUsers);
 
@@ -99,7 +99,7 @@ class UserServiceTest {
         //Given
         UpdateUserRequest updateUserRequest = new UpdateUserRequest();
         updateUserRequest.setName("Jakub");
-        User user = new User("Test", "test","test","test", Role.USER);
+        User user = new User("Test", "test","test","test","Paris","PAR", Role.USER);
         when(userRepository.existsById(any())).thenReturn(true);
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
 

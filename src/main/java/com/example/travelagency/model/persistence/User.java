@@ -34,6 +34,8 @@ public class User implements UserDetails   {
     @NotBlank
     @Email
     private String email;
+    private String origin;
+    private String originIataCode;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany
@@ -44,11 +46,13 @@ public class User implements UserDetails   {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public User(@NonNull String username, @NonNull String password, @NonNull String name, @NonNull String email, Role role) {
+    public User(String username, String password, String name, String email, String origin, String originIataCode, Role role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.origin = origin;
+        this.originIataCode = originIataCode;
         this.role = role;
     }
 

@@ -2,8 +2,10 @@ package com.example.travelagency.controller;
 
 import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.model.dto.TripDto;
+import com.example.travelagency.model.persistence.Role;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.persistence.TripInfo;
+import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.service.TripService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
@@ -39,7 +41,7 @@ class TripControllerTest {
     @Test
     @WithMockUser
     void addTrip() throws Exception {
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(trip);
@@ -58,11 +60,11 @@ class TripControllerTest {
     @Test
     @WithMockUser
     void getListOfTrips() throws Exception {
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
         List<Trip> list = new ArrayList<>();
         list.add(trip);
         List<TripDto> list1 = new ArrayList<>();
-        TripDto tripDto = new TripDto("test", "test", "test", "test", "test");
+        TripDto tripDto = new TripDto("test", "test", "test");
         list1.add(tripDto);
         when(tripService.getListOfTrips()).thenReturn(list);
         when(tripMapper.mapToTripDtoList(list)).thenReturn(list1);
@@ -77,15 +79,17 @@ class TripControllerTest {
     @Test
     @WithMockUser
     void getTripInfo() throws Exception {
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
+
         TripInfo tripInfo = new TripInfo(trip, new ArrayList<>(), new ArrayList<>());
+
         Long id = 1L;
-        when(tripService.getTripInfo(1L)).thenReturn(tripInfo);
+        when(tripService.getTripInfo(1L,1L)).thenReturn(tripInfo);
 
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/trips/{id}", id))
+                        .get("/trips/{tripId}/{userId}", id,id))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.trip.origin", Matchers.is("test")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.trip.destination", Matchers.is("test")));
     }
 }

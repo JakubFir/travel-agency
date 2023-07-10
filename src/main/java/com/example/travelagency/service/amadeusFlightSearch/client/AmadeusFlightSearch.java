@@ -2,6 +2,8 @@ package com.example.travelagency.service.amadeusFlightSearch.client;
 
 
 import com.example.travelagency.model.persistence.Trip;
+import com.example.travelagency.model.persistence.User;
+import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.service.amadeusFlightSearch.config.AmadeusFlightSearchConfig;
 import com.example.travelagency.model.dto.amadeusModel.AccessTokenResponse;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
@@ -26,6 +28,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AmadeusFlightSearch {
     private final AmadeusFlightSearchConfig amadeusFlightSearchConfig;
+    private final UserRepository userRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(AmadeusFlightSearch.class);
     private final RestTemplate restTemplate;
 
@@ -50,7 +53,8 @@ public class AmadeusFlightSearch {
         }
     }
 
-    public AmadeusFlight getAvailableFlights(Trip trip) {
+    public AmadeusFlight getAvailableFlights(Trip trip, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
         AccessTokenResponse accessTokenResponse = getAccessToken();
 
         HttpHeaders headers = new HttpHeaders();
@@ -58,7 +62,7 @@ public class AmadeusFlightSearch {
         HttpEntity<?> entity = new HttpEntity<>(headers);
         System.out.println(accessTokenResponse.getAccessToken());
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
-                .queryParam("originLocationCode", trip.getOriginIataCode())
+                .queryParam("originLocationCode", user.getOriginIataCode())
                 .queryParam("destinationLocationCode", trip.getDestinationsIataCode())
                 .queryParam("departureDate", java.time.LocalDate.now().toString())
                 .queryParam("adults", "1")

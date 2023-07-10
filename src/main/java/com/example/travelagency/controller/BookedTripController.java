@@ -29,8 +29,8 @@ public class BookedTripController {
     public void deleteBookedTrip(@PathVariable Long bookedTripId){
         bookingTripService.deleteBookedTrip(bookedTripId);
     }
-    @PutMapping("{tripId}")
-    public void updateBookedTrip(@RequestBody BookingRequest bookingRequest, @PathVariable Long tripId){
-        bookingTripService.updateBookedTrip(bookingRequest,tripId);
+    @PutMapping("{tripId}/{userId}")
+    public void updateBookedTrip(@RequestBody BookingRequest bookingRequest, @PathVariable Long tripId,@PathVariable Long userId){
+        bookingTripService.updateBookedTrip(bookingRequest,tripId,userId);
     }
 }

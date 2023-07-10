@@ -12,9 +12,7 @@ public class TripMapper {
     public TripDto mapToTripDto(Trip trip) {
         return TripDto.builder()
                 .destination(trip.getDestination())
-                .origin(trip.getOrigin())
                 .description(trip.getDescription())
-                .originIataCode(trip.getOriginIataCode())
                 .destinationsIataCode(trip.getDestinationsIataCode())
                 .build();
     }
@@ -25,8 +23,6 @@ public class TripMapper {
 
     public Trip mapToTrip(TripDto trip) {
         return new Trip(
-                trip.getOrigin(),
-                trip.getOriginIataCode(),
                 trip.getDestinationsIataCode(),
                 trip.getDestination(),
                 trip.getDescription());

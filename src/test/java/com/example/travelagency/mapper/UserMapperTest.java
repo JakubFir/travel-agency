@@ -22,7 +22,7 @@ class UserMapperTest {
     @Test
     void mapToUserDto() {
         // Given
-        User user = new User("john_doe", "password123", "John Doe", "john@example.com", Role.USER);
+        User user = new User("john_doe", "password123", "John Doe", "john@example.com","Paris","PAR", Role.USER);
 
         // When
         UserDto userDto = userMapper.mapToUserDto(user);
@@ -37,10 +37,10 @@ class UserMapperTest {
     void mapToUserDtoList() {
         // Given
         List<User> users = new ArrayList<>();
-        User user1 = new User("john_doe", "password123", "John Doe", "john@example.com", Role.USER);
+        User user1 = new User("john_doe", "password123", "John Doe", "john@example.com","Paris","PAR", Role.USER);
         users.add(user1);
 
-        User user2 = new User("jane_smith", "password456", "Jane Smith", "jane@example.com", Role.USER);
+        User user2 = new User("jane_smith", "password456", "Jane Smith", "jane@example.com","Paris","PAR", Role.USER);
         users.add(user2);
 
         // When

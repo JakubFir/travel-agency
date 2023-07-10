@@ -4,10 +4,8 @@ import com.example.travelagency.exceptions.FlightNotFoundException;
 import com.example.travelagency.exceptions.TripNotFoundException;
 import com.example.travelagency.mapper.FlightMapper;
 import com.example.travelagency.mapper.HotelMapper;
-import com.example.travelagency.model.dto.bookingModel.HotelModel;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
-import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.BookingRequest;
 import com.example.travelagency.model.persistence.*;
@@ -38,7 +36,7 @@ public class BookingTripService {
         User bookingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
-        Flight getChosenFlightForTrip = getFlight(bookingRequest.getFlightId(), tripToBook);
+        Flight getChosenFlightForTrip = getFlight(bookingRequest.getFlightId(), tripToBook,userId);
         flightRepository.save(getChosenFlightForTrip);
 
         Hotel getChosenHotelForTrip = getHotel(bookingRequest.getBookingHotelRequest(), bookingRequest.getBookingHotelRequest().getHotelId());
@@ -69,8 +67,8 @@ public class BookingTripService {
     }
 
 
-    private Flight getFlight(Long flightId, Trip tripToBook) {
-        AmadeusFlight amadeusFlight = amadeusFlightSearch.getAvailableFlights(tripToBook);
+    private Flight getFlight(Long flightId, Trip tripToBook, Long userId) {
+        AmadeusFlight amadeusFlight = amadeusFlightSearch.getAvailableFlights(tripToBook, userId);
         if (amadeusFlight.getAvailableFlights() != null) {
             return  flightMapper.mapFlightInfo(amadeusFlight.getAvailableFlights()
                     .stream()
@@ -93,9 +91,9 @@ public class BookingTripService {
         }
     }
 
-    public void updateBookedTrip(BookingRequest bookingRequest, Long tripId) {
+    public void updateBookedTrip(BookingRequest bookingRequest, Long tripId, Long userId) {
         BookedTrip bookedTrip = bookedTripRepository.findById(tripId).orElseThrow(() -> new TripNotFoundException("Booked trip with given id doesn't exists"));
-        Flight flight = getFlight(bookingRequest.getFlightId(), bookedTrip.getTrip());
+        Flight flight = getFlight(bookingRequest.getFlightId(), bookedTrip.getTrip(), userId);
         flightRepository.save(flight);
         bookedTrip.setFlight(flight);
         Hotel hotel = getHotel(bookingRequest.getBookingHotelRequest(), bookingRequest.getBookingHotelRequest().getHotelId());

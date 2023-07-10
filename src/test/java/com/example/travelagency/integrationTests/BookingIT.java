@@ -29,7 +29,7 @@ public class BookingIT extends Testcontainers {
     @Test
     @Order(1)
     public void canBookTrip(){
-        RegisterRequest registerRequest = new RegisterRequest("Test2","tes2cst","te2st","te2st@wp.pl");
+        RegisterRequest registerRequest = new RegisterRequest("Test2","tes2cst","te2st","te2st@wp.pl","Paris","PAR");
         webTestClient.post()
                 .uri("/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -37,7 +37,7 @@ public class BookingIT extends Testcontainers {
                 .exchange()
                 .expectStatus().isOk();
 
-        Trip trip = new Trip("Berlin", "BER", "PAR", "Paris", "test");
+        Trip trip = new Trip("BER", "Berlin", "PAR");
         webTestClient.post()
                 .uri("/trips").contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(trip)

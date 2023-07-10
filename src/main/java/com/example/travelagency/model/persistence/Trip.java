@@ -20,14 +20,10 @@ public class Trip  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String origin;
-    private String originIataCode;
     private String destinationsIataCode;
     private String destination;
     private String description;
-    public Trip(String origin, String originIataCode, String destinationsIataCode, String destination, String description) {
-        this.origin = origin;
-        this.originIataCode = originIataCode;
+    public Trip(String destinationsIataCode, String destination, String description) {
         this.destinationsIataCode = destinationsIataCode;
         this.destination = destination;
         this.description = description;

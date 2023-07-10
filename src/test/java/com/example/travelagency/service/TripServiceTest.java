@@ -8,6 +8,7 @@ import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
 import com.example.travelagency.repository.NewsLetterRepository;
 import com.example.travelagency.repository.TripRepository;
+import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.observer.NewsLetterObservable;
@@ -34,6 +35,8 @@ class TripServiceTest {
     @Mock
     private BookingHotelSearch bookingHotelSearch;
     @Mock
+    private UserRepository userRepository;
+    @Mock
     private NewsLetterRepository newsLetterRepository;
     @Mock
     private TripMapper tripMapper;
@@ -43,14 +46,14 @@ class TripServiceTest {
 
     @BeforeEach
     void setUp() {
-        tripService = new TripService(tripRepository, amadeusFlightSearch, bookingHotelSearch, newsLetterRepository, tripMapper, observable);
+        tripService = new TripService(tripRepository, amadeusFlightSearch, bookingHotelSearch, newsLetterRepository, tripMapper, observable,userRepository);
     }
 
     @Test
     void addTrip() {
         //Given
 
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
 
         //When
         tripService.addTrip(trip);
@@ -64,7 +67,7 @@ class TripServiceTest {
     void getListOfTrips() {
         //Given
         List<Trip> list = new ArrayList<>();
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
         list.add(trip);
         when(tripRepository.findAll()).thenReturn(list);
 
@@ -79,17 +82,17 @@ class TripServiceTest {
     @Test
     void getTripInfo() {
         //Given
-        Trip trip = new Trip("test", "test", "test", "test", "test");
+        Trip trip = new Trip("test", "test", "test");
         List<FlightInfo> flightInfos = new ArrayList<>();
         AmadeusFlight amadeusFlight = new AmadeusFlight(flightInfos);
         List<BookingAvailableHotelsInCity> bookingAvailableHotelsInCities = new ArrayList<>();
         TripInfo tripInfo = new TripInfo(trip, flightInfos, bookingAvailableHotelsInCities);
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
-        when(amadeusFlightSearch.getAvailableFlights(trip)).thenReturn(amadeusFlight);
+        when(amadeusFlightSearch.getAvailableFlights(trip,1L)).thenReturn(amadeusFlight);
         when(bookingHotelSearch.getAvailableHotels(trip.getDestination())).thenReturn(bookingAvailableHotelsInCities);
 
         //When
-        TripInfo tripInfo1 = tripService.getTripInfo(1L);
+        TripInfo tripInfo1 = tripService.getTripInfo(1L,1L);
 
         //Then
         assertThat(tripInfo1).isEqualTo(tripInfo);

@@ -68,8 +68,8 @@ class BookingTripServiceTest {
     @Test
     void bookTrip() {
         //Given
-        Trip trip = new Trip("Test", "test", "test", "test", "test");
-        User user = new User("test", "test", "test", "test", Role.USER);
+        Trip trip = new Trip("Test", "test", "test");
+        User user = new User("test", "test", "test", "test","Paris","PAR", Role.USER);
         Hotel hotel = new Hotel(1L, "test", "test", 2, "test", "test", true);
         Flight flight = new Flight("test", "test");
         HotelModel hotelModel = new HotelModel("test", "test", 1L, 2, "test", "test", true);
@@ -85,7 +85,7 @@ class BookingTripServiceTest {
                 .thenReturn(new HotelInfo(Collections.singletonList(hotelModel)));
         when(hotelMapper.mapToHotel(hotelModel)).thenReturn(hotel);
 
-        when(amadeusFlightSearch.getAvailableFlights(any(Trip.class)))
+        when(amadeusFlightSearch.getAvailableFlights(any(Trip.class),any()))
                 .thenReturn(new AmadeusFlight(Collections.singletonList(flightInfo)));
         when(flightMapper.mapFlightInfo(flightInfo)).thenReturn(flight);
 
@@ -110,7 +110,7 @@ class BookingTripServiceTest {
     void getAllBookedTrips() {
         //Given
         List<BookedTrip> list = new ArrayList<>();
-        User user = new User("test", "test", "test", "test", Role.USER);
+        User user = new User("test", "test", "test", "test","Paris","PAR", Role.USER);
         user.setBookedTrips(list);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 

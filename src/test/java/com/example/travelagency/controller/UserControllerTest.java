@@ -47,9 +47,9 @@ class UserControllerTest {
     @WithMockUser
     void getAllUsers() throws Exception {
         //Given
-        User user = new User("test", "test", "test", "test", Role.USER);
+        User user = new User("test", "test", "test", "test","Paris","PAR",Role.USER);
         List<User> listOfUsers = new ArrayList<>();
-        UserDto userDto = new UserDto("test", "test", "test");
+        UserDto userDto = new UserDto("test", "test", "test","Pris","PAR");
         listOfUsers.add(user);
         when(userService.getAllUsers()).thenReturn(listOfUsers);
         when(userMapper.mapToUserDtoList(listOfUsers)).thenReturn(List.of(userDto));
@@ -68,8 +68,8 @@ class UserControllerTest {
     @WithMockUser
     void getUser() throws Exception {
         //Given
-        User user = new User("test", "test", "test", "test", Role.USER);
-        UserDto userDto = new UserDto("test", "test", "test");
+        User user = new User("test", "test", "test", "test","Paris","PAR",Role.USER);
+        UserDto userDto = new UserDto("test", "test", "test","Pris","PAR");
 
 
         when(userMapper.mapToUserDto(user)).thenReturn(userDto);
@@ -103,9 +103,9 @@ class UserControllerTest {
     @Test
     @WithMockUser
     void updateUser() throws Exception {
-        User user = new User("test", "test", "test", "test", Role.USER);
+        User user = new User("test", "test", "test", "test","Paris","PAR",Role.USER);
         UpdateUserRequest request = new UpdateUserRequest("update","update","update","update");
-        UserDto userDto = new UserDto("update", "update", "update");
+        UserDto userDto = new UserDto("update", "update", "test","Pris","PAR");
         when(userService.updateUser(1L,request)).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
         Long id = 1L;

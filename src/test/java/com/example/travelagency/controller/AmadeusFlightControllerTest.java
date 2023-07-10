@@ -39,9 +39,9 @@ class AmadeusFlightControllerTest {
     @WithMockUser
     void getAvailableFlights() throws Exception {
         AmadeusFlight amadeusFlight = new AmadeusFlight(new ArrayList<>());
-        Trip trip = new Trip("test","test","test","test","test");
-        when(amadeusFlightSearch.getAvailableFlights(any())).thenReturn(amadeusFlight);
-
+        Trip trip = new Trip("test","test","test");
+        when(amadeusFlightSearch.getAvailableFlights(any(),any())).thenReturn(amadeusFlight);
+        Long id = 1L;
         Gson gson = new Gson();
         String jsonContent = gson.toJson(trip);
 
@@ -49,7 +49,7 @@ class AmadeusFlightControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/flight")
+                                .post("/flight/{id}", id)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonContent)
                                 .with(csrf()))

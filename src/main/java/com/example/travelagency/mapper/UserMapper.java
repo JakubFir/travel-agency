@@ -19,6 +19,8 @@ public class UserMapper {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .name(user.getName())
+                .origin(user.getOrigin())
+                .originIataCode(user.getOriginIataCode())
                 .build();
     }
 

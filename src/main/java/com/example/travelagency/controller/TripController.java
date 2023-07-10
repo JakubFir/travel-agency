@@ -28,9 +28,9 @@ public class TripController {
         return tripMapper.mapToTripDtoList(tripService.getListOfTrips());
     }
 
-    @GetMapping(path = "{tripId}")
-    public TripInfo getTripInfo(@PathVariable Long tripId) {
-        return tripService.getTripInfo(tripId);
+    @GetMapping(path = "{tripId}/{userId}")
+    public TripInfo getTripInfo(@PathVariable Long tripId, @PathVariable Long userId) {
+        return tripService.getTripInfo(tripId, userId);
     }
 
 }

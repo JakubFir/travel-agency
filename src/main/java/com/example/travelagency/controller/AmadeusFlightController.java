@@ -15,9 +15,9 @@ public class AmadeusFlightController {
     private final AmadeusFlightSearch amadeusFlightSearch;
     private final TripMapper tripMapper;
 
-    @PostMapping
-    public AmadeusFlight getAvailableFlights(@RequestBody TripDto trip) {
-         return amadeusFlightSearch.getAvailableFlights(tripMapper.mapToTrip(trip));
+    @PostMapping("/{userId}")
+    public AmadeusFlight getAvailableFlights(@RequestBody TripDto trip, @PathVariable Long userId) {
+         return amadeusFlightSearch.getAvailableFlights(tripMapper.mapToTrip(trip), userId);
     }
 
 }
