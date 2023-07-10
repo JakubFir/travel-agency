@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.model.persistence.Trip;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -30,11 +31,13 @@ class AmadeusFlightControllerTest {
 
     @MockBean
     private AmadeusFlightSearch amadeusFlightSearch;
+
     @MockBean
     private TripMapper tripMapper;
     @Autowired
     private MockMvc mockMvc;
-
+    @MockBean
+    private JwtService jwtService;
     @Test
     @WithMockUser
     void getAvailableFlights() throws Exception {

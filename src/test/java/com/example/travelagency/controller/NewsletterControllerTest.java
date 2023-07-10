@@ -5,6 +5,7 @@ import com.example.travelagency.model.dto.NewsLetterDto;
 import com.example.travelagency.model.persistence.Newsletter;
 
 import com.example.travelagency.model.persistence.Subscriber;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.NewsLetterService;
 import com.example.travelagency.service.observer.NewsLetterObservable;
 import com.google.gson.Gson;
@@ -32,6 +33,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 class NewsletterControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
     @MockBean
     private NewsLetterService newsLetterService;
     @MockBean

@@ -15,6 +15,7 @@ public class BookingHotelRequest {
     private String placeName;
     private String destination;
     private int adultsNumber;
+
     private Long hotelId;
 
     public BookingHotelRequest(String checkInDate, String checkOutDate, String placeName, String destination, int adultsNumber) {

@@ -1,5 +1,6 @@
 package com.example.travelagency.security;
 
+import com.example.travelagency.security.jwtToken.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +9,9 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -17,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityFilter {
 
     private final AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -27,7 +31,9 @@ public class SecurityFilter {
                                 .anyRequest()
                                 .permitAll())
                 .formLogin(Customizer.withDefaults())
-                .authenticationProvider(authenticationProvider);
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

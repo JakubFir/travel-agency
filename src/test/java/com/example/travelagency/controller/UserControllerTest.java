@@ -6,6 +6,7 @@ import com.example.travelagency.model.dto.UserDto;
 import com.example.travelagency.model.persistence.Role;
 import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.repository.UserRepository;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.UserService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
@@ -42,7 +43,8 @@ class UserControllerTest {
     private UserService userService;
     @MockBean
     private UserMapper userMapper;
-
+    @MockBean
+    private JwtService jwtService;
     @Test
     @WithMockUser
     void getAllUsers() throws Exception {

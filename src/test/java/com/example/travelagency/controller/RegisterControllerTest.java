@@ -1,6 +1,7 @@
 package com.example.travelagency.controller;
 
 import com.example.travelagency.model.dto.RegisterRequest;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.UserService;
 import com.example.travelagency.validator.RequestValidator;
 import com.google.gson.Gson;
@@ -24,6 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RegisterControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
     @MockBean
     private  UserService userService;
     @MockBean

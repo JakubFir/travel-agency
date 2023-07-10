@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.mapper.SubscriberMapper;
 import com.example.travelagency.model.dto.SubscriberDto;
 import com.example.travelagency.model.persistence.Subscriber;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.SubscriberService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.when;
 class ObserverControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
     @MockBean
     private  SubscriberService subscriberService;
     @MockBean

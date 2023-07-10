@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.mapper.BookTripMapper;
 import com.example.travelagency.model.dto.BookingRequest;
 import com.example.travelagency.service.BookingTripService;
+import com.example.travelagency.service.JwtService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BookedTripControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
     @MockBean
     private  BookingTripService bookingTripService;
     @MockBean

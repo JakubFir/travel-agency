@@ -64,7 +64,7 @@ public class AmadeusFlightSearch {
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
                 .queryParam("originLocationCode", user.getOriginIataCode())
                 .queryParam("destinationLocationCode", trip.getDestinationsIataCode())
-                .queryParam("departureDate", java.time.LocalDate.now().toString())
+                .queryParam("departureDate", java.time.LocalDate.now().plusDays(1).toString())
                 .queryParam("adults", "1")
                 .queryParam("max", "2")
                 .build()

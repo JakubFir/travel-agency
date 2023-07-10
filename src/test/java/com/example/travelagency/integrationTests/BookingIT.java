@@ -5,6 +5,8 @@ import com.example.travelagency.model.dto.BookingRequest;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.persistence.Trip;
+import com.example.travelagency.model.persistence.User;
+import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.testContainers.Testcontainers;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -25,11 +27,16 @@ public class BookingIT extends Testcontainers {
 
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     @Order(1)
     public void canBookTrip(){
-        RegisterRequest registerRequest = new RegisterRequest("Test2","tes2cst","te2st","te2st@wp.pl","Paris","PAR");
+        String checkInDate = java.time.LocalDate.now().toString();
+        String checkOutDate = java.time.LocalDate.now().plusDays(2).toString();
+
+        RegisterRequest registerRequest = new RegisterRequest("Test2","tes2cst","te2st","te2st@wp.pl","Berlin","BER");
         webTestClient.post()
                 .uri("/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -37,7 +44,7 @@ public class BookingIT extends Testcontainers {
                 .exchange()
                 .expectStatus().isOk();
 
-        Trip trip = new Trip("BER", "Berlin", "PAR");
+        Trip trip = new Trip("PAR", "Paris", "PAR");
         webTestClient.post()
                 .uri("/trips").contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(trip)
@@ -45,7 +52,7 @@ public class BookingIT extends Testcontainers {
                 .expectStatus().isOk();
 
         BookingHotelRequest bookingHotelRequest =
-                new BookingHotelRequest("2023-07-20","2023-07-29","Paris City Centre","Paris",1);
+                new BookingHotelRequest(checkInDate,checkOutDate,"Paris City Centre","Paris",1);
 
         HotelInfo hotelInfo = webTestClient
                 .post()
@@ -58,16 +65,17 @@ public class BookingIT extends Testcontainers {
                 .getResponseBody();
 
        Long LongHotelId = hotelInfo.getResult().get(0).getHotelId();
+        User user = userRepository.findUserByUsername(registerRequest.getUsername()).orElseThrow();
 
         BookingHotelRequest finalBookingRequest =
-                new BookingHotelRequest("2023-07-20","2023-07-29","Paris City Centre","Paris",1,LongHotelId);
+                new BookingHotelRequest(checkInDate,checkOutDate,"Paris City Centre","Paris",1,LongHotelId);
         BookingRequest bookingRequest = new BookingRequest(1L, 1L,finalBookingRequest);
         webTestClient
                 .mutate()
                 .responseTimeout(Duration.ofMillis(30000))
                 .build()
                 .post()
-                .uri("/book/{userId}",1).contentType(MediaType.APPLICATION_JSON)
+                .uri("/book/{userId}",user.getId()).contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(bookingRequest)
                 .exchange()
                 .expectStatus().isOk();

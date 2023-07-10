@@ -6,6 +6,7 @@ import com.example.travelagency.model.persistence.Role;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.model.persistence.User;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.TripService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
@@ -37,6 +38,8 @@ class TripControllerTest {
     private TripMapper tripMapper;
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
 
     @Test
     @WithMockUser

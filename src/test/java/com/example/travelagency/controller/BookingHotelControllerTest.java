@@ -3,6 +3,7 @@ package com.example.travelagency.controller;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.service.BookingHotelService;
+import com.example.travelagency.service.JwtService;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
@@ -28,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BookingHotelControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtService jwtService;
     @MockBean
     private BookingHotelSearch bookingHotelSearch;
     @MockBean
