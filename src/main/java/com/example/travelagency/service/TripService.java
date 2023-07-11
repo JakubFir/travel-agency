@@ -26,7 +26,7 @@ public class TripService {
     private final NewsLetterRepository newsLetterRepository;
     private final TripMapper tripMapper;
     private final NewsLetterObservable newsLetterObservable;
-    private final UserRepository userRepository;
+
 
 
     public void addTrip(Trip trip) {

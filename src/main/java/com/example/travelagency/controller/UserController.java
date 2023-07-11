@@ -20,18 +20,20 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserDto> getAllUsers(){
-        return userMapper.mapToUserDtoList(userService.getAllUsers());
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        return ResponseEntity.ok(userMapper.mapToUserDtoList(userService.getAllUsers()));
     }
 
     @GetMapping(path = "/{userId}")
-    public UserDto getUser(@PathVariable Long userId){
-        return userMapper.mapToUserDto(userService.getUser(userId));
+    public ResponseEntity<UserDto> getUser(@PathVariable Long userId){
+        return ResponseEntity.ok(userMapper.mapToUserDto(userService.getUser(userId)));
     }
 
     @DeleteMapping(path = "/{userId}")
-    public void deleteUser(@PathVariable Long userId){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
+
     }
 
     @PutMapping(path = "/{userId}")

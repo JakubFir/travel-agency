@@ -6,6 +6,7 @@ import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.service.BookingHotelService;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class BookingHotelController {
     private final BookingHotelService bookingHotelService;
 
     @GetMapping(path = "/{destination}")
-    public List<BookingAvailableHotelsInCity> getHotels(@PathVariable String destination) {
-        return bookingHotelSearch.getAvailableHotels(destination);
+    public ResponseEntity<List<BookingAvailableHotelsInCity>> getHotels(@PathVariable String destination) {
+        return ResponseEntity.ok(bookingHotelSearch.getAvailableHotels(destination));
     }
 
     @PostMapping
-    public HotelInfo getHotelsByCoordinates(@RequestBody BookingHotelRequest bookingHotelRequest) {
-        return bookingHotelService.getHotelsByCoordinates(bookingHotelRequest);
+    public ResponseEntity<HotelInfo> getHotelsByCoordinates(@RequestBody BookingHotelRequest bookingHotelRequest) {
+        return ResponseEntity.ok(bookingHotelService.getHotelsByPlaceName(bookingHotelRequest));
     }
 
 }

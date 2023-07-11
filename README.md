@@ -49,10 +49,10 @@ This controller is responsible for managing booked trips and provides endpoints 
     * Example: `DELETE /book/456`
 
 * **Method: PUT**
-    * **Path: `/book/{tripId}`**
+    * **Path: `/book/{tripId}/{userId}`**
     * Description: Updates a specific booked trip.
     * Request Body: BookingRequest (data transfer object containing updated booking details)
-    * Path Variable: tripId (ID of the trip)
+    * Path Variable: tripId (ID of the trip), userId (ID of the user)
     * Example: `PUT /book/789`
 ### Booking Hotel Controller
 * Description: Handles hotel booking and retrieval of available hotels.
@@ -157,10 +157,10 @@ This controller is responsible for managing trips and provides endpoints for add
     * Response Body: List of TripDto (data transfer objects containing trip details)
 
 * **Method: GET**
-    * **Path: `/trips/{tripId}`**
-    * Description: Retrieves detailed information about a specific trip.
-    * Path Variable: tripId (ID of the trip)
-    * Example: `GET /trips/123`
+    * **Path: `/trips/{tripId}/{userId}`**
+    * Description: Retrieves detailed information about a specific trip available for a user.
+    * Path Variable: tripId (ID of the trip), userId (ID of the user)
+    * Example: `GET /trips/123/123`
     * Response Body: TripInfo (data transfer object containing trip information)
 ### User Controller
 * Description: Handles user management and retrieval.

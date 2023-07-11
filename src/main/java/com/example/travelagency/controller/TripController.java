@@ -6,6 +6,7 @@ import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.mapper.TripMapper;
 import com.example.travelagency.service.TripService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,18 +20,20 @@ public class TripController {
 
 
     @PostMapping
-    public void addTrip(@RequestBody Trip trip) {
+    public ResponseEntity<Void> addTrip(@RequestBody Trip trip) {
         tripService.addTrip(trip);
+        return ResponseEntity.ok().build();
+
     }
 
     @GetMapping
-    public List<TripDto> getListOfTrips() {
-        return tripMapper.mapToTripDtoList(tripService.getListOfTrips());
+    public ResponseEntity<List<TripDto>> getListOfTrips() {
+        return ResponseEntity.ok(tripMapper.mapToTripDtoList(tripService.getListOfTrips()));
     }
 
     @GetMapping(path = "{tripId}/{userId}")
-    public TripInfo getTripInfo(@PathVariable Long tripId, @PathVariable Long userId) {
-        return tripService.getTripInfo(tripId, userId);
+    public ResponseEntity<TripInfo> getTripInfo(@PathVariable Long tripId, @PathVariable Long userId) {
+        return ResponseEntity.ok(tripService.getTripInfo(tripId, userId));
     }
 
 }

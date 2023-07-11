@@ -46,7 +46,7 @@ class BookingHotelServiceTest {
                 eq(bookingAvailableHotelsInCity), eq(bookingHotelRequest)))
                 .thenReturn(hotelInfo);
         // When
-        HotelInfo result = bookingHotelService.getHotelsByCoordinates(bookingHotelRequest);
+        HotelInfo result = bookingHotelService.getHotelsByPlaceName(bookingHotelRequest);
 
         // Then
         assertThat(result).isEqualTo(hotelInfo);

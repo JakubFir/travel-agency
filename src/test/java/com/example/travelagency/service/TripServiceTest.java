@@ -46,7 +46,7 @@ class TripServiceTest {
 
     @BeforeEach
     void setUp() {
-        tripService = new TripService(tripRepository, amadeusFlightSearch, bookingHotelSearch, newsLetterRepository, tripMapper, observable,userRepository);
+        tripService = new TripService(tripRepository, amadeusFlightSearch, bookingHotelSearch, newsLetterRepository, tripMapper, observable);
     }
 
     @Test

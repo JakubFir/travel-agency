@@ -6,6 +6,7 @@ import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +17,7 @@ public class AmadeusFlightController {
     private final TripMapper tripMapper;
 
     @PostMapping("/{userId}")
-    public AmadeusFlight getAvailableFlights(@RequestBody TripDto trip, @PathVariable Long userId) {
-         return amadeusFlightSearch.getAvailableFlights(tripMapper.mapToTrip(trip), userId);
+    public ResponseEntity<AmadeusFlight> getAvailableFlights(@RequestBody TripDto trip, @PathVariable Long userId) {
+        return ResponseEntity.ok(amadeusFlightSearch.getAvailableFlights(tripMapper.mapToTrip(trip), userId));
     }
-
 }

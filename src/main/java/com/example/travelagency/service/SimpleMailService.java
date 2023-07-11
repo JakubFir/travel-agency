@@ -10,17 +10,25 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SimpleMailService {
     public static final String WEEKLY_MAIL = "weekly mail";
-    public static final String NEWS_LETTER = "news letter";
+    public static final String NEWS_LETTER = "newsletter";
     private final JavaMailSender javaMailSender;
 
     public void sendEmail(final Mail mail, String mailType) {
         if (mailType.equals(WEEKLY_MAIL)) {
-            javaMailSender.send(createMailMessage(mail));
+            javaMailSender.send(createWeeklyMailMessage(mail));
         } else
-            javaMailSender.send(createMailMessage(mail));
+            javaMailSender.send(createNewsletterMailMessage(mail));
     }
 
-    private SimpleMailMessage createMailMessage(final Mail mail) {
+    private SimpleMailMessage createNewsletterMailMessage(Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+        return mailMessage;
+    }
+
+    private SimpleMailMessage createWeeklyMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());

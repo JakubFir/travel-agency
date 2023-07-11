@@ -27,10 +27,10 @@ public class MailCreatorService {
     }
 
 
-    public Mail createNewTrioMail(String email, TripDto tripDto) {
+    public Mail createNewsletterMail(String email, TripDto tripDto) {
         return Mail.builder()
                 .mailTo(email)
-                .message("New trip has been added " + tripDto)
+                .message("A new trip has been added " + tripDto)
                 .subject(SimpleMailService.NEWS_LETTER)
                 .build();
     }

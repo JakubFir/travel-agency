@@ -18,8 +18,7 @@ public class SubscriberObserver implements Observer {
     public void update(Observer observer, TripDto tripDto) {
             Subscriber subscriber = (Subscriber) observer;
             String email = subscriber.getEmail();
-            Mail mail = mailCreatorService.createNewTrioMail(email, tripDto);
-            System.out.println(email);
+            Mail mail = mailCreatorService.createNewsletterMail(email, tripDto);
             simpleMailService.sendEmail(mail, mail.getSubject());
 
     }

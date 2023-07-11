@@ -1,6 +1,7 @@
 package com.example.travelagency.service;
 
 import com.example.travelagency.exceptions.FlightNotFoundException;
+import com.example.travelagency.exceptions.HotelNotFoundException;
 import com.example.travelagency.exceptions.TripNotFoundException;
 import com.example.travelagency.mapper.FlightMapper;
 import com.example.travelagency.mapper.HotelMapper;
@@ -54,13 +55,13 @@ public class BookingTripService {
     }
 
     private Hotel getHotel(BookingHotelRequest bookingHotelRequest, Long hotelId) {
-        HotelInfo hotelInfo = bookingHotelService.getHotelsByCoordinates(bookingHotelRequest);
+        HotelInfo hotelInfo = bookingHotelService.getHotelsByPlaceName(bookingHotelRequest);
         if (hotelInfo.getResult() != null) {
             return hotelMapper.mapToHotel(hotelInfo.getResult()
                     .stream()
                     .filter(hotelModel1 -> hotelModel1.getHotelId().equals(hotelId))
                     .findFirst()
-                    .orElseThrow(() -> new FlightNotFoundException("Invalid hotel request")));
+                    .orElseThrow(() -> new HotelNotFoundException("Invalid hotel request")));
         } else {
             throw new FlightNotFoundException("Invalid hotel request");
         }

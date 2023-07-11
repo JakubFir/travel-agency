@@ -62,5 +62,9 @@ public class GlobalHttpErrorHandler {
     public ResponseEntity<Object> handleBadEmailRequestException(BadEmailRequest exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
+    @ExceptionHandler(HotelNotFoundException.class)
+    public ResponseEntity<Object> handleHotelNotFoundException(HotelNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
 
 }

@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -26,9 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -81,7 +78,7 @@ class BookingTripServiceTest {
 
         when(tripRepository.findById(any())).thenReturn(Optional.of(trip));
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
-        when(bookingHotelService.getHotelsByCoordinates(any(BookingHotelRequest.class)))
+        when(bookingHotelService.getHotelsByPlaceName(any(BookingHotelRequest.class)))
                 .thenReturn(new HotelInfo(Collections.singletonList(hotelModel)));
         when(hotelMapper.mapToHotel(hotelModel)).thenReturn(hotel);
 

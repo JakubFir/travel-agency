@@ -64,7 +64,7 @@ class BookingHotelControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(bookingHotelRequest);
 
-        when(bookingHotelService.getHotelsByCoordinates(bookingHotelRequest)).thenReturn(new HotelInfo(new ArrayList<>()));
+        when(bookingHotelService.getHotelsByPlaceName(bookingHotelRequest)).thenReturn(new HotelInfo(new ArrayList<>()));
 
         //When && Then
         mockMvc.perform(MockMvcRequestBuilders

@@ -8,6 +8,7 @@ import com.example.travelagency.model.persistence.Subscriber;
 import com.example.travelagency.service.NewsLetterService;
 import com.example.travelagency.service.observer.NewsLetterObservable;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,19 +22,23 @@ public class NewsLetterController {
     private final NewsLetterObservable observable;
 
     @PostMapping()
-    public void createNewsLetter(@RequestBody Newsletter newsLetter) {
+    public ResponseEntity<Void> createNewsLetter(@RequestBody Newsletter newsLetter) {
         newsLetterService.createNewsLetter(newsLetter);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping()
-    public List<NewsLetterDto> getAllNewsLetters() {
-        return newsLetterMapper.mapToNewsletterDtoList(newsLetterService.getAllNewsLetters());
+    public ResponseEntity<List<NewsLetterDto>> getAllNewsLetters() {
+        return ResponseEntity.ok(newsLetterMapper.mapToNewsletterDtoList(newsLetterService.getAllNewsLetters()));
     }
 
     @PostMapping(path = "/{newsletterId}")
-    public void subscribeToGivenNewsLetter(@RequestBody Subscriber subscriber, @PathVariable Long newsletterId) {
-        observable.register(subscriber,newsletterId);
+    public ResponseEntity<Void> subscribeToGivenNewsLetter(@RequestBody Subscriber subscriber, @PathVariable Long newsletterId) {
+        observable.register(subscriber, newsletterId);
+        return ResponseEntity.ok().build();
+
     }
+
     @DeleteMapping(path = "/{newsletterId}")
     public void unsubscribeToGivenNewsLetter(@RequestBody Subscriber subscriber, @PathVariable Long newsletterId) {
         observable.removeObserver(subscriber, newsletterId);
