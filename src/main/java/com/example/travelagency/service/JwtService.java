@@ -1,5 +1,6 @@
 package com.example.travelagency.service;
 
+import com.example.travelagency.config.SecurityConfig;
 import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -20,7 +21,7 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "qXara/JpQKQrk1Xczo3aE5/0QX5ljzY+ayNzcTAQ2o9gzRLWRVxshMa2ugyd7fkh";
+    private final SecurityConfig securityConfig;
     private final UserRepository userRepository;
 
     public String generateToken(String username) {
@@ -65,7 +66,7 @@ public class JwtService {
     }
 
     public Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(securityConfig.getSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
