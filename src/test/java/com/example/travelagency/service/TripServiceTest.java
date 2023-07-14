@@ -1,6 +1,7 @@
 package com.example.travelagency.service;
 
 import com.example.travelagency.mapper.TripMapper;
+import com.example.travelagency.model.dto.FlightRequest;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.model.persistence.TripInfo;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
@@ -20,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,10 +87,11 @@ class TripServiceTest {
         Trip trip = new Trip("test", "test", "test");
         List<FlightInfo> flightInfos = new ArrayList<>();
         AmadeusFlight amadeusFlight = new AmadeusFlight(flightInfos);
+        FlightRequest flightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString());
         List<BookingAvailableHotelsInCity> bookingAvailableHotelsInCities = new ArrayList<>();
         TripInfo tripInfo = new TripInfo(trip, flightInfos, bookingAvailableHotelsInCities);
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
-        when(amadeusFlightSearch.getAvailableFlights(trip,1L)).thenReturn(amadeusFlight);
+        when(amadeusFlightSearch.getAvailableFlights(1L,1L, flightRequest)).thenReturn(amadeusFlight);
         when(bookingHotelSearch.getAvailableHotels(trip.getDestination())).thenReturn(bookingAvailableHotelsInCities);
 
         //When

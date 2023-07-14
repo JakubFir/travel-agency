@@ -9,12 +9,9 @@ import lombok.*;
 @Builder
 public class BookingRequest {
     @NotBlank
-    @NonNull
     private Long tripId;
     @NotBlank
-    @NonNull
-    private Long flightId;
-    @NonNull
+    private FlightRequest flightRequest;
     @NotBlank
     private BookingHotelRequest bookingHotelRequest;
 }

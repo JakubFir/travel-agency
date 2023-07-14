@@ -1,6 +1,7 @@
 package com.example.travelagency.controller;
 
 import com.example.travelagency.mapper.TripMapper;
+import com.example.travelagency.model.dto.FlightRequest;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.model.persistence.Trip;
 import com.example.travelagency.service.JwtService;
@@ -18,9 +19,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -43,8 +43,11 @@ class AmadeusFlightControllerTest {
     void getAvailableFlights() throws Exception {
         AmadeusFlight amadeusFlight = new AmadeusFlight(new ArrayList<>());
         Trip trip = new Trip("test","test","test");
-        when(amadeusFlightSearch.getAvailableFlights(any(),any())).thenReturn(amadeusFlight);
+        FlightRequest flightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString());
+        when(amadeusFlightSearch.getAvailableFlights(any(),any(), any(FlightRequest.class))).thenReturn(amadeusFlight);
         Long id = 1L;
+        Long id2 = 1L;
+
         Gson gson = new Gson();
         String jsonContent = gson.toJson(trip);
 
@@ -52,7 +55,7 @@ class AmadeusFlightControllerTest {
         mockMvc
                 .perform(
                         MockMvcRequestBuilders
-                                .post("/flight/{id}", id)
+                                .post("/flight/{id}/{id2}", id,id2)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonContent)
                                 .with(csrf()))

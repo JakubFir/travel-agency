@@ -2,6 +2,7 @@ package com.example.travelagency.integrationTests;
 
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.BookingRequest;
+import com.example.travelagency.model.dto.FlightRequest;
 import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.persistence.Trip;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.time.Duration;
+import java.util.Date;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -66,10 +68,10 @@ public class BookingIT extends Testcontainers {
 
        Long LongHotelId = hotelInfo.getResult().get(0).getHotelId();
         User user = userRepository.findUserByUsername(registerRequest.getUsername()).orElseThrow();
-
+        FlightRequest flightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString(),1L);
         BookingHotelRequest finalBookingRequest =
                 new BookingHotelRequest(checkInDate,checkOutDate,"Paris City Centre","Paris",1,LongHotelId);
-        BookingRequest bookingRequest = new BookingRequest(1L, 1L,finalBookingRequest);
+        BookingRequest bookingRequest = new BookingRequest(1L, flightRequest,finalBookingRequest);
         webTestClient
                 .mutate()
                 .responseTimeout(Duration.ofMillis(30000))

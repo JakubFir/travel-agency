@@ -1,10 +1,9 @@
 package com.example.travelagency.service;
 
 import com.example.travelagency.mapper.TripMapper;
+import com.example.travelagency.model.dto.FlightRequest;
 import com.example.travelagency.model.persistence.Newsletter;
-import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.repository.NewsLetterRepository;
-import com.example.travelagency.repository.UserRepository;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
 import com.example.travelagency.model.persistence.Trip;
@@ -28,12 +27,11 @@ public class TripService {
     private final NewsLetterObservable newsLetterObservable;
 
 
-
     public void addTrip(Trip trip) {
         tripRepository.save(trip);
         List<Newsletter> newsletterList = newsLetterRepository.findAll();
-        for(Newsletter newsLetter : newsletterList){
-            if (newsLetter.getNewsletterTitle().equals("New Trip")){
+        for (Newsletter newsLetter : newsletterList) {
+            if (newsLetter.getNewsletterTitle().equals("New Trip")) {
                 newsLetterObservable.notifyObs(tripMapper.mapToTripDto(trip), newsLetter.getObserverList());
             }
         }
@@ -43,12 +41,12 @@ public class TripService {
         return tripRepository.findAll();
     }
 
-    public TripInfo getTripInfo(Long tripId,Long userId) {
+    public TripInfo getTripInfo(Long tripId, Long userId) {
         Trip tripToGetInformation = tripRepository.findById(tripId).orElseThrow();
         TripInfo tripInfo = new TripInfo();
-
+        FlightRequest defaultFlightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString());
         tripInfo.setTrip(tripToGetInformation);
-        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripToGetInformation,userId).getAvailableFlights());
+        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripId, userId, defaultFlightRequest).getAvailableFlights());
         tripInfo.setAvailableHotelsInCities(bookingHotelSearch.getAvailableHotels(tripToGetInformation.getDestinationsIataCode()));
         return tripInfo;
     }

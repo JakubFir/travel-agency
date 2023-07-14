@@ -5,6 +5,7 @@ import com.example.travelagency.model.dto.RegisterRequest;
 import com.example.travelagency.exceptions.EmailTakenException;
 import com.example.travelagency.exceptions.UsernameTakenException;
 import com.example.travelagency.repository.UserRepository;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,16 @@ import org.springframework.stereotype.Service;
 public class RequestValidator {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
 
     public boolean validateRegisterRequest(RegisterRequest registerRequest) {
         String password = registerRequest.getPassword();
-        if (password == null || password.length() < 5 ) {
+        if (password == null || password.length() < 5) {
             throw new EmptyFieldsException("password has to be at least 5 characters long");
         }
-        return validateEmail(registerRequest.getEmail()) && validateUsername(registerRequest.getUsername());
+        return validateEmail(registerRequest.getEmail())
+                && validateUsername(registerRequest.getUsername())
+                && validateUserOriginIataCode(registerRequest.getOriginIataCode());
     }
 
     private boolean validateUsername(String username) {
@@ -30,6 +32,14 @@ public class RequestValidator {
             throw new UsernameTakenException("Username already taken");
         }
         return true;
+    }
+
+    private boolean validateUserOriginIataCode(String iataCode) {
+        if (iataCode.length() == 3) {
+            return true;
+        } else {
+            throw new ValidationException("originLocationCode must be a 3-letter code");
+        }
     }
 
     private boolean validateEmail(String email) {

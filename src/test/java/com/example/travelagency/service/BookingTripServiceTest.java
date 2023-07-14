@@ -4,6 +4,7 @@ import com.example.travelagency.mapper.FlightMapper;
 import com.example.travelagency.mapper.HotelMapper;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.model.dto.BookingRequest;
+import com.example.travelagency.model.dto.FlightRequest;
 import com.example.travelagency.model.dto.amadeusModel.AmadeusFlight;
 import com.example.travelagency.model.dto.amadeusModel.FlightInfo;
 import com.example.travelagency.model.dto.amadeusModel.FlightPriceInfo;
@@ -12,6 +13,7 @@ import com.example.travelagency.model.dto.bookingModel.HotelModel;
 import com.example.travelagency.model.persistence.*;
 import com.example.travelagency.repository.*;
 import com.example.travelagency.service.amadeusFlightSearch.client.AmadeusFlightSearch;
+import com.example.travelagency.validator.BookingRequestValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +22,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,6 +48,8 @@ class BookingTripServiceTest {
     private UserRepository userRepository;
     @Mock
     private HotelRepository hotelRepository;
+    @Mock
+    private BookingRequestValidator bookingRequestValidator;
 
     private BookingTripService bookingTripService;
 
@@ -59,7 +60,7 @@ class BookingTripServiceTest {
                 tripRepository, amadeusFlightSearch,
                 hotelMapper, bookingHotelService,
                 flightRepository, userRepository,
-                hotelRepository);
+                hotelRepository,bookingRequestValidator);
     }
 
     @Test
@@ -73,8 +74,10 @@ class BookingTripServiceTest {
         List<BookedTrip> list = new ArrayList<>();
         user.setBookedTrips(list);
         FlightInfo flightInfo = new FlightInfo("test", 1L, new ArrayList<>(), new FlightPriceInfo(new BigDecimal(1)));
+        FlightRequest flightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString(),1L);
+
         BookingHotelRequest bookingHotelRequest = new BookingHotelRequest("Test", "test", "test", "test", 1, 1L);
-        BookingRequest bookingRequest = new BookingRequest(1L, 1L, bookingHotelRequest);
+        BookingRequest bookingRequest = new BookingRequest(1L, flightRequest, bookingHotelRequest);
 
         when(tripRepository.findById(any())).thenReturn(Optional.of(trip));
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
@@ -82,7 +85,7 @@ class BookingTripServiceTest {
                 .thenReturn(new HotelInfo(Collections.singletonList(hotelModel)));
         when(hotelMapper.mapToHotel(hotelModel)).thenReturn(hotel);
 
-        when(amadeusFlightSearch.getAvailableFlights(any(Trip.class),any()))
+        when(amadeusFlightSearch.getAvailableFlights(any(),any(), any(FlightRequest.class)))
                 .thenReturn(new AmadeusFlight(Collections.singletonList(flightInfo)));
         when(flightMapper.mapFlightInfo(flightInfo)).thenReturn(flight);
 

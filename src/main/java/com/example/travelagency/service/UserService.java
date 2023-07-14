@@ -31,7 +31,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setName(registerRequest.getName());
         user.setEmail(registerRequest.getEmail());
-        user.setOrigin(registerRequest.getOrigin());
+        user.setOrigin(registerRequest.getOrigin().toUpperCase());
         user.setOriginIataCode(registerRequest.getOriginIataCode());
         user.setRole(Role.USER);
         userRepository.save(user);
