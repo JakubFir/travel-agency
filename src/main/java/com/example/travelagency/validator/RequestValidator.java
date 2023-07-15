@@ -7,7 +7,6 @@ import com.example.travelagency.exceptions.UsernameTakenException;
 import com.example.travelagency.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,7 +37,7 @@ public class RequestValidator {
         if (iataCode.length() == 3) {
             return true;
         } else {
-            throw new ValidationException("originLocationCode must be a 3-letter code");
+            throw new ValidationException("origin location code must be a 3-letter code");
         }
     }
 

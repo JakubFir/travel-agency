@@ -2,14 +2,11 @@ package com.example.travelagency.controller;
 
 import com.example.travelagency.exceptions.BadEmailRequest;
 import com.example.travelagency.model.dto.RegisterRequest;
-import com.example.travelagency.exceptions.EmptyFieldsException;
 import com.example.travelagency.service.UserService;
 import com.example.travelagency.validator.RequestValidator;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

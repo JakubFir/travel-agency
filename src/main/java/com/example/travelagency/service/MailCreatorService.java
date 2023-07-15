@@ -17,16 +17,25 @@ public class MailCreatorService {
     private final TripRepository tripRepository;
 
     public Mail createWeeklyMail(String mail) {
-        List<Trip> listOfTrips = tripRepository.findAll();
-        Random rnd = new Random();
+        Trip randomTrip = getRandomTrip();
+        if (randomTrip == null) {
+            return null;
+        }
         return Mail.builder()
                 .mailTo(mail)
-                .message("test")
+                .message("A random trip offer " + randomTrip)
                 .subject(SimpleMailService.WEEKLY_MAIL)
                 .build();
     }
 
-
+    private Trip getRandomTrip() {
+        List<Trip> listOfTrips = tripRepository.findAll();
+        if (listOfTrips != null && !listOfTrips.isEmpty()) {
+            Random rnd = new Random();
+            return listOfTrips.get(rnd.nextInt(listOfTrips.size()));
+        }
+        return null;
+    }
     public Mail createNewsletterMail(String email, TripDto tripDto) {
         return Mail.builder()
                 .mailTo(email)

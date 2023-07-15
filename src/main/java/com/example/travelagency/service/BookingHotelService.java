@@ -1,13 +1,11 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.model.dto.bookingModel.BookingAvailableHotelsInCity;
 import com.example.travelagency.model.dto.bookingModel.HotelInfo;
 import com.example.travelagency.model.dto.BookingHotelRequest;
 import com.example.travelagency.service.bookingHotelSearch.client.BookingHotelSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

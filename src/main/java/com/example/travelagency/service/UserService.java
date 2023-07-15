@@ -1,6 +1,5 @@
 package com.example.travelagency.service;
 
-import com.example.travelagency.exceptions.BadEmailRequest;
 import com.example.travelagency.model.persistence.Role;
 import com.example.travelagency.model.persistence.User;
 import com.example.travelagency.exceptions.UserNotFoundException;
@@ -9,12 +8,10 @@ import com.example.travelagency.model.dto.UpdateUserRequest;
 import com.example.travelagency.exceptions.EmailTakenException;
 import com.example.travelagency.exceptions.UsernameTakenException;
 import com.example.travelagency.repository.UserRepository;
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionSystemException;
 
 import java.util.List;
 
