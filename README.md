@@ -35,6 +35,28 @@ This controller is responsible for authentication of user, and providing a JWT t
   * Request Body: AuthenticationRequest (data transfer object containing user/login details)
   * Example: `POST /jwt/login`
 
+### Amadeus Flight Controller
+* Description: Handles flight search for trips and return flights using the AmadeusFlightSearch service.
+* Base Path: `/flight`
+
+This controller is responsible for retrieving available flights for a specific trip and return flights. It communicates with the `AmadeusFlightSearch` service to fetch flight information.
+
+**Endpoint Descriptions:**
+
+* **Method: POST**
+  * **Path: `/flight/{tripId}/{userId}`**
+  * Description: Retrieves available flights for a specific trip.
+  * Path Variables: tripId (ID of the trip), userId (ID of the user)
+  * Request Body: FlightRequest (data transfer object containing flight search details)
+  * Example: `POST /flight/123/456`
+
+* **Method: POST**
+  * **Path: `/flight/return/{tripId}/{userId}`**
+  * Description: Retrieves available return flights for a specific trip.
+  * Path Variables: tripId (ID of the trip), userId (ID of the user)
+  * Request Body: FlightRequest (data transfer object containing flight search details)
+  * Example: `POST /flight/return/123/456`
+
 ### Booked Trip Controller
 * Description: Handles booking, retrieval, deletion, and updating of booked trips.
 * Base Path: `/book`
