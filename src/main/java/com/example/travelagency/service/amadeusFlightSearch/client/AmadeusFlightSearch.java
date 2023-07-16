@@ -56,20 +56,39 @@ public class AmadeusFlightSearch {
         }
     }
 
-    public AmadeusFlight getAvailableFlights(Long tripId, Long userId, FlightRequest flightRequest) {
+    public AmadeusFlight getTripAvailableFlights(Long tripId, Long userId, FlightRequest flightRequest) {
         Trip trip = tripRepository.findById(tripId).orElseThrow();
-
         User user = userRepository.findById(userId).orElseThrow();
         AccessTokenResponse accessTokenResponse = getAccessToken();
+
+        String originIataCode = user.getOriginIataCode();
+        String destinationIataCode = trip.getDestinationsIataCode();
+        String departureDate = flightRequest.getDepartureDate();
+
+        return availableFlights(originIataCode, destinationIataCode, departureDate, accessTokenResponse);
+    }
+    public AmadeusFlight getReturnAvailableFlights(Long tripId, Long userId, FlightRequest flightRequest) {
+        Trip trip = tripRepository.findById(tripId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
+        AccessTokenResponse accessTokenResponse = getAccessToken();
+
+        String originIataCode = trip.getDestinationsIataCode();
+        String destinationIataCode = user.getOriginIataCode();
+        String departureDate = flightRequest.getDepartureDate();
+
+        return availableFlights(originIataCode, destinationIataCode, departureDate, accessTokenResponse);
+    }
+
+    private AmadeusFlight availableFlights(String originIataCode, String destinationIataCode, String departureDate, AccessTokenResponse accessTokenResponse) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessTokenResponse.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
         System.out.println(accessTokenResponse.getAccessToken());
         URI uri = UriComponentsBuilder.fromHttpUrl("https://test.api.amadeus.com/v2/shopping/flight-offers")
-                .queryParam("originLocationCode", user.getOriginIataCode())
-                .queryParam("destinationLocationCode", trip.getDestinationsIataCode())
-                .queryParam("departureDate", flightRequest.getDepartureDate())
+                .queryParam("originLocationCode", originIataCode)
+                .queryParam("destinationLocationCode", destinationIataCode)
+                .queryParam("departureDate", departureDate)
                 .queryParam("adults", "1")
                 .queryParam("max", "2")
                 .build()

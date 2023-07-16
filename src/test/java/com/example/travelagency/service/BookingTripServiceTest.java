@@ -85,7 +85,7 @@ class BookingTripServiceTest {
                 .thenReturn(new HotelInfo(Collections.singletonList(hotelModel)));
         when(hotelMapper.mapToHotel(hotelModel)).thenReturn(hotel);
 
-        when(amadeusFlightSearch.getAvailableFlights(any(),any(), any(FlightRequest.class)))
+        when(amadeusFlightSearch.getTripAvailableFlights(any(),any(), any(FlightRequest.class)))
                 .thenReturn(new AmadeusFlight(Collections.singletonList(flightInfo)));
         when(flightMapper.mapFlightInfo(flightInfo)).thenReturn(flight);
 

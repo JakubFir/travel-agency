@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -44,7 +43,7 @@ class AmadeusFlightControllerTest {
         AmadeusFlight amadeusFlight = new AmadeusFlight(new ArrayList<>());
         Trip trip = new Trip("test","test","test");
         FlightRequest flightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString());
-        when(amadeusFlightSearch.getAvailableFlights(any(),any(), any(FlightRequest.class))).thenReturn(amadeusFlight);
+        when(amadeusFlightSearch.getTripAvailableFlights(any(),any(), any(FlightRequest.class))).thenReturn(amadeusFlight);
         Long id = 1L;
         Long id2 = 1L;
 

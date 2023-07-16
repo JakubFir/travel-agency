@@ -75,7 +75,7 @@ public class BookingTripService {
 
 
     private Flight getFlight(FlightRequest flightRequest, Trip tripToBook, Long userId) {
-        AmadeusFlight amadeusFlight = amadeusFlightSearch.getAvailableFlights(tripToBook.getId(), userId, flightRequest);
+        AmadeusFlight amadeusFlight = amadeusFlightSearch.getTripAvailableFlights(tripToBook.getId(), userId, flightRequest);
         if (amadeusFlight.getAvailableFlights() != null) {
             return flightMapper.mapFlightInfo(amadeusFlight.getAvailableFlights()
                     .stream()

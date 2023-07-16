@@ -21,7 +21,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,7 +90,7 @@ class TripServiceTest {
         List<BookingAvailableHotelsInCity> bookingAvailableHotelsInCities = new ArrayList<>();
         TripInfo tripInfo = new TripInfo(trip, flightInfos, bookingAvailableHotelsInCities);
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
-        when(amadeusFlightSearch.getAvailableFlights(1L,1L, flightRequest)).thenReturn(amadeusFlight);
+        when(amadeusFlightSearch.getTripAvailableFlights(1L,1L, flightRequest)).thenReturn(amadeusFlight);
         when(bookingHotelSearch.getAvailableHotels(trip.getDestination())).thenReturn(bookingAvailableHotelsInCities);
 
         //When

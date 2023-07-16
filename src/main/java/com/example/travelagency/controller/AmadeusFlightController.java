@@ -14,7 +14,11 @@ public class AmadeusFlightController {
     private final AmadeusFlightSearch amadeusFlightSearch;
 
     @PostMapping("/{tripId}/{userId}")
-    public ResponseEntity<AmadeusFlight> getAvailableFlights(@PathVariable Long tripId, @PathVariable Long userId,@RequestBody FlightRequest flightRequest) {
-        return ResponseEntity.ok(amadeusFlightSearch.getAvailableFlights(tripId, userId,flightRequest));
+    public ResponseEntity<AmadeusFlight> getTripAvailableFlights(@PathVariable Long tripId, @PathVariable Long userId, @RequestBody FlightRequest flightRequest) {
+        return ResponseEntity.ok(amadeusFlightSearch.getTripAvailableFlights(tripId, userId,flightRequest));
+    }
+    @PostMapping("/return/{tripId}/{userId}")
+    public ResponseEntity<AmadeusFlight> getReturnFlights(@PathVariable Long tripId, @PathVariable Long userId, @RequestBody FlightRequest flightRequest){
+        return ResponseEntity.ok(amadeusFlightSearch.getReturnAvailableFlights(tripId,userId,flightRequest));
     }
 }

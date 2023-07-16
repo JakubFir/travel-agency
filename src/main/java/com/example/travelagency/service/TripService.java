@@ -46,7 +46,7 @@ public class TripService {
         TripInfo tripInfo = new TripInfo();
         FlightRequest defaultFlightRequest = new FlightRequest(java.time.LocalDate.now().plusDays(1).toString());
         tripInfo.setTrip(tripToGetInformation);
-        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getAvailableFlights(tripId, userId, defaultFlightRequest).getAvailableFlights());
+        tripInfo.setListOfAvailableFlights(amadeusFlightSearch.getTripAvailableFlights(tripId, userId, defaultFlightRequest).getAvailableFlights());
         tripInfo.setAvailableHotelsInCities(bookingHotelSearch.getAvailableHotels(tripToGetInformation.getDestinationsIataCode()));
         return tripInfo;
     }
