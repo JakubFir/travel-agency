@@ -163,6 +163,12 @@ This controller is responsible for managing trips and provides endpoints for add
     * **Path: `/trips`**
     * Description: Adds a new trip.
     * Request Body: Trip (data transfer object containing trip details)
+    * Body Example : 
+    * `{
+      "destinationsIataCode":"PAR",
+      "destination": "Paris",
+      "description" : "Test description of trip"
+      }`
     * Example: `POST /trips`
 
 * **Method: GET**
