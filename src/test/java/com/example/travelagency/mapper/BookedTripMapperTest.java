@@ -11,12 +11,12 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookTripMapperTest {
-    private BookTripMapper bookTripMapper;
+class BookedTripMapperTest {
+    private BookedTripMapper bookedTripMapper;
 
     @BeforeEach
     void setUp() {
-        bookTripMapper = new BookTripMapper();
+        bookedTripMapper = new BookedTripMapper();
     }
 
     @Test
@@ -25,7 +25,7 @@ class BookTripMapperTest {
         BookedTrip bookedTrip = new BookedTrip(1L,new Trip(),new User(),new Flight(),new Hotel());
 
         //When
-        BookedTripDto bookedTripDto = bookTripMapper.mapToBookTripDto(bookedTrip);
+        BookedTripDto bookedTripDto = bookedTripMapper.mapToBookedTripDto(bookedTrip);
 
         //Then
        assertThat(bookedTripDto.getFlight()).isEqualTo(bookedTrip.getFlight());
@@ -43,7 +43,7 @@ class BookTripMapperTest {
         List<BookedTrip> allBookedTrips = asList(bookedTrip1, bookedTrip2);
 
         //When
-        List<BookedTripDto> bookedTripDtoList = bookTripMapper.mapToBookTripDtoList(allBookedTrips);
+        List<BookedTripDto> bookedTripDtoList = bookedTripMapper.mapToBookedTripDtoList(allBookedTrips);
 
         //Then
         assertEquals(2, bookedTripDtoList.size());

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BookTripMapper {
-    public BookedTripDto mapToBookTripDto(BookedTrip bookedTrip) {
+public class BookedTripMapper {
+    public BookedTripDto mapToBookedTripDto(BookedTrip bookedTrip) {
         return  BookedTripDto.builder()
                 .username(bookedTrip.getUser().getUsername())
                 .userId(bookedTrip.getUser().getId())
@@ -17,7 +17,7 @@ public class BookTripMapper {
                 .hotel(bookedTrip.getHotel())
                 .build();
     }
-    public List<BookedTripDto> mapToBookTripDtoList(List<BookedTrip> allBookedTrips) {
-        return allBookedTrips.stream().map(this::mapToBookTripDto).collect(Collectors.toList());
+    public List<BookedTripDto> mapToBookedTripDtoList(List<BookedTrip> allBookedTrips) {
+        return allBookedTrips.stream().map(this::mapToBookedTripDto).collect(Collectors.toList());
     }
 }

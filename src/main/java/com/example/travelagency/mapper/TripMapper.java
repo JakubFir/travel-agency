@@ -21,11 +21,4 @@ public class TripMapper {
     public List<TripDto> mapToTripDtoList(List<Trip> listOfTrips) {
         return listOfTrips.stream().map(this::mapToTripDto).collect(Collectors.toList());
     }
-
-    public Trip mapToTrip(TripDto trip) {
-        return new Trip(
-                trip.getDestinationsIataCode(),
-                trip.getDestination(),
-                trip.getDescription());
-    }
 }

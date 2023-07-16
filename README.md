@@ -20,6 +20,19 @@ To launch the project, follow these steps:
 * `docker compose up ` which create a docker container of our app using our `Dockerfile` with database in MySQl
 
 ### Mappings:
+### Authentication Controller
+* Description: Handles authentication of user.
+* Base Path: `/jwt/login`
+
+This controller is responsible for authentication of user, and providing a JWT token
+**Endpoint Descriptions:**
+
+* **Method: POST**
+  * **Path: `/jwt/login`**
+  * Description: Authenticate a user.
+  * Request Body: AuthenticationRequest (data transfer object containing user/login details)
+  * Example: `POST /jwt/login`
+
 ### Booked Trip Controller
 * Description: Handles booking, retrieval, deletion, and updating of booked trips.
 * Base Path: `/book`

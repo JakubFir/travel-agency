@@ -1,6 +1,6 @@
 package com.example.travelagency.controller;
 
-import com.example.travelagency.mapper.BookTripMapper;
+import com.example.travelagency.mapper.BookedTripMapper;
 import com.example.travelagency.model.dto.BookedTripDto;
 import com.example.travelagency.model.dto.BookingRequest;
 import com.example.travelagency.service.BookingTripService;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookedTripController {
     private final BookingTripService bookingTripService;
-    private final BookTripMapper bookTripMapper;
+    private final BookedTripMapper bookedTripMapper;
 
 
     @PostMapping(path = "{userId}")
@@ -26,7 +26,7 @@ public class BookedTripController {
 
     @GetMapping("{userId}")
     public ResponseEntity<List<BookedTripDto>> getBookedTrips(@PathVariable Long userId) {
-        return ResponseEntity.ok(bookTripMapper.mapToBookTripDtoList(bookingTripService.getAllBookedTrips(userId)));
+        return ResponseEntity.ok(bookedTripMapper.mapToBookedTripDtoList(bookingTripService.getAllBookedTrips(userId)));
     }
 
     @DeleteMapping("{bookedTripId}")
