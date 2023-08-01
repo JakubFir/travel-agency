@@ -33,7 +33,7 @@ This controller is responsible for authentication of user, and providing a JWT t
   * **Path: `/jwt/login`**
   * Description: Authenticate a user.
   * Request Body: AuthenticationRequest (data transfer object containing user/login details)
-  * Example: `POST /jwt/login`
+  * Example: `POST /jwt/login`  
 
 ### Amadeus Flight Controller
 * Description: Handles flight search for trips and return flights using the AmadeusFlightSearch service.
