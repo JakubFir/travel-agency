@@ -15,7 +15,7 @@ React frontend link: https://github.com/JakubFir/travel-agency-frontend
 * Docker: Docker software should be installed to run the application in containers.
 * MySQL: A MySQL database should be available for the app to store and retrieve data.
 ### Launching the Project
-To launch the project, follow these steps:
+To launch the project, follow these steps: 
 
 * create database `travel-agency` in MySQL
 * Run `./gradlew build -x test` - which build our app without tests
