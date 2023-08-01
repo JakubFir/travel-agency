@@ -12,7 +12,7 @@ React frontend link: https://github.com/JakubFir/travel-agency-frontend
  
 ### Requirements
 * JVM: Java Virtual Machine should be installed.
-* Docker: Docker software should be installed to run the application in containers.
+* Docker: Docker software should be installed to run the application in containers.  
 * MySQL: A MySQL database should be available for the app to store and retrieve data.
 ### Launching the Project
 To launch the project, follow these steps:
