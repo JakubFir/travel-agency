@@ -10,7 +10,7 @@ React frontend link: https://github.com/JakubFir/travel-agency-frontend
 * Hotel Selection: Users can choose a hotel from the available options in their desired place.
 * Reservation: Users can make a reservation for their selected trip, including flights and hotel.
  
-### Requirements
+### Requirements 
 * JVM: Java Virtual Machine should be installed.
 * Docker: Docker software should be installed to run the application in containers.
 * MySQL: A MySQL database should be available for the app to store and retrieve data.
