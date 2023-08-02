@@ -22,7 +22,7 @@ To launch the project, follow these steps:
 * `docker compose up ` which create a docker container of our app using our `Dockerfile` with database in MySQl
  
 ### Mappings: 
-### Authentication Controller
+### Authentication Controller 
 * Description: Handles authentication of user.
 * Base Path: `/jwt/login` 
 
