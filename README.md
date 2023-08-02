@@ -4,7 +4,7 @@ Travel Agency is a web application that provides various trips to users. It offe
 React frontend link: https://github.com/JakubFir/travel-agency-frontend 
 ### Basic flow of an app:
 * Registration: Users can create an account to access the app's functionalities.
-* Trip Selection: Users can browse and select their desired trip from the available options.
+* Trip Selection: Users can browse and select their desired trip from the available options. 
 * Flight Selection: Users can check and choose from the available flights for their selected trip.
 * Hotel Search: Users can search for hotels either in a specific city or based on a particular location.
 * Hotel Selection: Users can choose a hotel from the available options in their desired place.
