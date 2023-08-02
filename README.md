@@ -21,7 +21,7 @@ To launch the project, follow these steps:
 * Run `./gradlew build -x test` - which build our app without tests
 * `docker compose up ` which create a docker container of our app using our `Dockerfile` with database in MySQl
  
-### Mappings:
+### Mappings: 
 ### Authentication Controller
 * Description: Handles authentication of user.
 * Base Path: `/jwt/login`
