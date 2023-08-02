@@ -27,7 +27,7 @@ To launch the project, follow these steps:
 * Base Path: `/jwt/login`
 
 This controller is responsible for authentication of user, and providing a JWT token
-**Endpoint Descriptions:**
+**Endpoint Descriptions:** 
 
 * **Method: POST**
   * **Path: `/jwt/login`**
