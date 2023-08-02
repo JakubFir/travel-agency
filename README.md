@@ -17,7 +17,7 @@ React frontend link: https://github.com/JakubFir/travel-agency-frontend
 ### Launching the Project 
 To launch the project, follow these steps:
 
-* create database `travel-agency` in MySQL 
+* create database `travel-agency` in MySQL  
 * Run `./gradlew build -x test` - which build our app without tests
 * `docker compose up ` which create a docker container of our app using our `Dockerfile` with database in MySQl
  
