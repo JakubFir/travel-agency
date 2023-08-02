@@ -5,7 +5,7 @@ React frontend link: https://github.com/JakubFir/travel-agency-frontend
 ### Basic flow of an app:
 * Registration: Users can create an account to access the app's functionalities.
 * Trip Selection: Users can browse and select their desired trip from the available options.
-* Flight Selection: Users can check and choose from the available flights for their selected trip.
+* Flight Selection: Users can check a nd choose from the available flights for their selected trip.
 * Hotel Search: Users can search for hotels either in a specific city or based on a particular location.
 * Hotel Selection: Users can choose a hotel from the available options in their desired place.
 * Reservation: Users can make a reservation for their selected trip, including flights and hotel.
