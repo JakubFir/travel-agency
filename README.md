@@ -30,7 +30,7 @@ This controller is responsible for authentication of user, and providing a JWT t
 **Endpoint Descriptions:** 
 
 * **Method: POST**
-  * **Path: `/jwt/login`**
+  * **Path: `/jwt/login`** 
   * Description: Authenticate a user.
   * Request Body: AuthenticationRequest (data transfer object containing user/login details)
   * Example: `POST /jwt/login`
