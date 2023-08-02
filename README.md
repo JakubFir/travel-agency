@@ -24,7 +24,7 @@ To launch the project, follow these steps:
 ### Mappings: 
 ### Authentication Controller
 * Description: Handles authentication of user.
-* Base Path: `/jwt/login`
+* Base Path: `/jwt/login` 
 
 This controller is responsible for authentication of user, and providing a JWT token
 **Endpoint Descriptions:** 
