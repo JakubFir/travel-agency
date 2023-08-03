@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 withGradle(){
+                sh 'chmod +x gradlew'
                 sh './gradlew build -x test'
                 sh 'docker compose up -d'
                 }
