@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 withGradle(){
-                sh '.gradlew build -x test'
+                sh './gradlew build -x test'
                 sh 'docker compose up -d'
                 }
             }
