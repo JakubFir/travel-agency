@@ -1,12 +1,18 @@
 pipeline {
     agent any
     stages {
+        stage("Initialize") {
+            steps {
+                script {
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
         stage('Build') {
             steps {
                 withGradle(){
-                sh 'chmod +x gradlew'
-                sh './gradlew build -x test'
-                sh 'docker compose up -d'
+                sh 'docker version'
                 }
             }
         }
@@ -22,8 +28,3 @@ pipeline {
         }
     }
 }
-
-
-
-
-
