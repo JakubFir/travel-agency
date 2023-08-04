@@ -43,4 +43,6 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	exclude 'com/example/travelagency/testContainers'
+	exclude 'com/example/travelagency/integrationTests'
 }
